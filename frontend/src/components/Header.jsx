@@ -122,7 +122,7 @@ const Header = () => {
   const unreadCount = notifications.filter((n) => !n.isRead).length;
 
   return (
-    <header className="w-full bg-white border-b border-slate-100 sticky top-0 z-50 shadow-sm font-tech">
+    <header className="w-full bg-white dark:bg-dark-950 border-b border-slate-100 dark:border-dark-850 sticky top-0 z-50 shadow-sm font-tech">
       <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
         {/* Logo Brand */}
         <Link to="/" className="flex items-center gap-2.5 group">
@@ -130,23 +130,23 @@ const Header = () => {
             <FaReact className="h-5.5 w-5.5 animate-spin-slow text-white" />
           </div>
           <div className="flex flex-col">
-            <span className="text-lg font-black tracking-tight text-slate-900 leading-none">
+            <span className="text-lg font-black tracking-tight text-slate-900 dark:text-white leading-none">
               PrintFlow
             </span>
-            <span className="text-[10px] text-slate-500 font-medium mt-0.5">
+            <span className="text-[10px] text-slate-500 dark:text-dark-400 font-medium mt-0.5">
               Print. Easy. Anywhere.
             </span>
           </div>
         </Link>
 
         {/* Nav Links (Desktop) */}
-        <nav className="hidden md:flex items-center gap-8 text-sm font-bold text-slate-650 h-full pt-1.5">
+        <nav className="hidden md:flex items-center gap-8 text-sm font-bold text-slate-650 dark:text-dark-300 h-full pt-1.5">
           <Link
             to="/"
             className={`pb-1.5 transition-all border-b-2 ${
               location.pathname === '/' && !activeHash
                 ? 'text-blue-600 border-blue-600 font-black'
-                : 'text-slate-600 border-transparent hover:text-blue-600'
+                : 'text-slate-600 dark:text-dark-350 border-transparent hover:text-blue-600 dark:hover:text-blue-400'
             }`}
           >
             Home
@@ -157,7 +157,7 @@ const Header = () => {
               className={`pb-1.5 transition-all border-b-2 ${
                 location.pathname !== '/' && location.pathname !== '/services' && !['/login', '/signup', '/admin/login'].includes(location.pathname)
                   ? 'text-blue-600 border-blue-600 font-black'
-                  : 'text-slate-600 border-transparent hover:text-blue-600'
+                  : 'text-slate-600 dark:text-dark-350 border-transparent hover:text-blue-600 dark:hover:text-blue-400'
               }`}
             >
               Dashboard
@@ -168,7 +168,7 @@ const Header = () => {
             className={`pb-1.5 transition-all border-b-2 ${
               location.pathname === '/services'
                 ? 'text-blue-600 border-blue-600 font-black'
-                : 'text-slate-600 border-transparent hover:text-blue-600'
+                : 'text-slate-600 dark:text-dark-350 border-transparent hover:text-blue-600 dark:hover:text-blue-400'
             }`}
           >
             Services
@@ -178,7 +178,7 @@ const Header = () => {
             className={`pb-1.5 transition-all border-b-2 ${
               activeHash === '#how-it-works'
                 ? 'text-blue-600 border-blue-600 font-black'
-                : 'text-slate-600 border-transparent hover:text-blue-600'
+                : 'text-slate-600 dark:text-dark-350 border-transparent hover:text-blue-600 dark:hover:text-blue-400'
             }`}
           >
             How It Works
@@ -195,9 +195,9 @@ const Header = () => {
             title={theme === "dark" ? "Switch to Light Mode" : "Switch to Dark Mode"}
           >
             {theme === "dark" ? (
-              <Sun className="h-4.5 w-4.5" />
+              <Sun className="h-5 w-5 text-yellow-500" />
             ) : (
-              <Moon className="h-4.5 w-4.5" />
+              <Moon className="h-5 w-5 text-slate-500" />
             )}
           </div>
           {user ? (
