@@ -39,6 +39,25 @@
   --color-footer-hover: #60A5FA;
 }
 
+.dark {
+  --color-background: #0B0F19;
+  --color-card: #111827;
+  --color-text-primary: #F9FAFB;
+  --color-text-secondary: #9CA3AF;
+  --color-text-muted: #6B7280;
+  --color-border: #1F2937;
+  --color-sidebar: #111827;
+  --color-sidebar-hover: #1F2937;
+  --color-footer: #030712;
+  --color-footer-text: #9CA3AF;
+  --color-footer-link: #6B7280;
+  --color-footer-hover: #60A5FA;
+}
+
+.dark .text-white {
+  color: #ffffff !important;
+}
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;

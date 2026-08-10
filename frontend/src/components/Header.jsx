@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
+
 import {
   Bell,
   User,
@@ -13,7 +14,9 @@ import {
   CreditCard,
   Lock,
   HelpCircle,
-  Contact
+  Contact,
+  Sun,
+  Moon
 } from "lucide-react";
 import { FaReact } from "react-icons/fa";
 import { useAuth } from "../context/AuthContext";
@@ -30,6 +33,22 @@ const Header = () => {
   const [showNotifications, setShowNotifications] = useState(false);
   const [showUserMenu, setShowUserMenu] = useState(false);
   const [activeHash, setActiveHash] = useState(location.hash);
+  const [theme, setTheme] = useState(
+    localStorage.getItem("theme") || "light"
+  );
+
+  useEffect(() => {
+    if (theme === "dark") {
+      document.documentElement.classList.add("dark");
+    } else {
+      document.documentElement.classList.remove("dark");
+    }
+    localStorage.setItem("theme", theme);
+  }, [theme]);
+
+  const toggleTheme = () => {
+    setTheme((prev) => (prev === "dark" ? "light" : "dark"));
+  };
 
   useEffect(() => {
     setActiveHash(location.hash);
@@ -169,6 +188,18 @@ const Header = () => {
 
         {/* Action Buttons */}
         <div className="flex items-center gap-4">
+          {/* Theme Toggle Button */}
+          <div
+            onClick={toggleTheme}
+            className="p-2.5 rounded-xl border border-slate-200 dark:border-dark-800 bg-white dark:bg-dark-900 text-slate-500 dark:text-dark-300 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-slate-50 dark:hover:bg-dark-800 transition-all cursor-pointer flex items-center justify-center shrink-0"
+            title={theme === "dark" ? "Switch to Light Mode" : "Switch to Dark Mode"}
+          >
+            {theme === "dark" ? (
+              <Sun className="h-4.5 w-4.5" />
+            ) : (
+              <Moon className="h-4.5 w-4.5" />
+            )}
+          </div>
           {user ? (
             <>
               {/* Notification Bell Badge */}

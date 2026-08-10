@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
+
 import { useAuth } from '../context/AuthContext';
-import { LogIn, Mail, Lock, AlertCircle, ShieldAlert } from 'lucide-react';
+import { LogIn, Mail, Lock, AlertCircle, ShieldAlert, Eye, EyeOff } from 'lucide-react';
 import Header from '../components/Header';
 
 const AdminLogin = () => {
@@ -9,6 +10,7 @@ const AdminLogin = () => {
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const [submitting, setSubmitting] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
   
   const { login } = useAuth();
   const navigate = useNavigate();
@@ -90,7 +92,6 @@ const AdminLogin = () => {
                 />
               </div>
             </div>
-
             <div>
               <label htmlFor="admin-password" className="block text-sm font-medium text-dark-300 mb-2">
                 Security Password
@@ -101,13 +102,19 @@ const AdminLogin = () => {
                 </span>
                 <input
                   id="admin-password"
-                  type="password"
+                  type={showPassword ? "text" : "password"}
                   required
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   placeholder="••••••••"
-                  className="block w-full rounded-xl bg-dark-900 border border-dark-800 py-3 pl-10 pr-3 text-white placeholder-dark-500 focus:border-rose-500 focus:outline-none focus:ring-1 focus:ring-rose-500 text-sm transition-colors"
+                  className="block w-full rounded-xl bg-dark-900 border border-dark-800 py-3 pl-10 pr-10 text-white placeholder-dark-500 focus:border-rose-500 focus:outline-none focus:ring-1 focus:ring-rose-500 text-sm transition-colors"
                 />
+                <div
+                  onClick={() => setShowPassword(!showPassword)}
+                  className="absolute inset-y-0 right-0 flex items-center pr-3 text-dark-400 hover:text-white cursor-pointer"
+                >
+                  {showPassword ? <EyeOff className="h-5 w-5" /> : <Eye className="h-5 w-5" />}
+                </div>
               </div>
             </div>
 

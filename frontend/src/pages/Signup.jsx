@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
+
 import { useAuth } from '../context/AuthContext';
-import { UserPlus, User, Hash, GraduationCap, School, Mail, Lock, AlertCircle } from 'lucide-react';
+import { UserPlus, User, Hash, GraduationCap, School, Mail, Lock, AlertCircle, Eye, EyeOff } from 'lucide-react';
 import { FaReact } from 'react-icons/fa';
 import Header from '../components/Header';
 
@@ -18,6 +19,8 @@ const Signup = () => {
   
   const [error, setError] = useState('');
   const [submitting, setSubmitting] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   
   const { register } = useAuth();
   const navigate = useNavigate();
@@ -119,7 +122,6 @@ const Signup = () => {
                 </div>
               </div>
 
-              {/* Student ID */}
               <div>
                 <label className="block text-sm font-medium text-dark-300 mb-2">Student ID</label>
                 <div className="relative">
@@ -132,7 +134,7 @@ const Signup = () => {
                     required
                     value={formData.studentId}
                     onChange={handleChange}
-                    placeholder="2021-1-60-032"
+                    placeholder="240242001"
                     className="block w-full rounded-xl bg-dark-900 border border-dark-800 py-3 pl-10 pr-3 text-white placeholder-dark-500 focus:border-brand-500 focus:outline-none focus:ring-1 focus:ring-brand-500 text-sm transition-colors"
                   />
                 </div>
@@ -145,15 +147,24 @@ const Signup = () => {
                   <span className="absolute inset-y-0 left-0 flex items-center pl-3 text-dark-400">
                     <School className="h-5 w-5" />
                   </span>
-                  <input
+                  <select
                     name="department"
-                    type="text"
                     required
                     value={formData.department}
                     onChange={handleChange}
-                    placeholder="CSE / BBA / EEE"
-                    className="block w-full rounded-xl bg-dark-900 border border-dark-800 py-3 pl-10 pr-3 text-white placeholder-dark-500 focus:border-brand-500 focus:outline-none focus:ring-1 focus:ring-brand-500 text-sm transition-colors"
-                  />
+                    className="block w-full rounded-xl bg-dark-900 border border-dark-800 py-3 pl-10 pr-8 text-white focus:border-brand-500 focus:outline-none focus:ring-1 focus:ring-brand-500 text-sm transition-colors appearance-none"
+                  >
+                    <option value="" disabled className="text-dark-500 bg-dark-950">Select Department</option>
+                    <option value="CSE" className="text-white bg-dark-950">CSE</option>
+                    <option value="BBA" className="text-white bg-dark-950">BBA</option>
+                    <option value="LAW" className="text-white bg-dark-950">LAW</option>
+                    <option value="ENG" className="text-white bg-dark-950">ENG</option>
+                    <option value="PHARMACY" className="text-white bg-dark-950">PHARMACY</option>
+                    <option value="JOURNALISM" className="text-white bg-dark-950">JOURNALISM</option>
+                  </select>
+                  <span className="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none text-dark-400">
+                    <ChevronDown className="h-4 w-4" />
+                  </span>
                 </div>
               </div>
 
@@ -170,7 +181,7 @@ const Signup = () => {
                     required
                     value={formData.semester}
                     onChange={handleChange}
-                    placeholder="Fall 2026 / Spring 2026"
+                    placeholder="1st/2nd/3rd..."
                     className="block w-full rounded-xl bg-dark-900 border border-dark-800 py-3 pl-10 pr-3 text-white placeholder-dark-500 focus:border-brand-500 focus:outline-none focus:ring-1 focus:ring-brand-500 text-sm transition-colors"
                   />
                 </div>
@@ -194,7 +205,6 @@ const Signup = () => {
                   />
                 </div>
               </div>
-
               {/* Password */}
               <div>
                 <label className="block text-sm font-medium text-dark-300 mb-2">Password</label>
@@ -204,13 +214,19 @@ const Signup = () => {
                   </span>
                   <input
                     name="password"
-                    type="password"
+                    type={showPassword ? "text" : "password"}
                     required
                     value={formData.password}
                     onChange={handleChange}
                     placeholder="••••••••"
-                    className="block w-full rounded-xl bg-dark-900 border border-dark-800 py-3 pl-10 pr-3 text-white placeholder-dark-500 focus:border-brand-500 focus:outline-none focus:ring-1 focus:ring-brand-500 text-sm transition-colors"
+                    className="block w-full rounded-xl bg-dark-900 border border-dark-800 py-3 pl-10 pr-10 text-white placeholder-dark-500 focus:border-brand-500 focus:outline-none focus:ring-1 focus:ring-brand-500 text-sm transition-colors"
                   />
+                  <div
+                    onClick={() => setShowPassword(!showPassword)}
+                    className="absolute inset-y-0 right-0 flex items-center pr-3 text-dark-400 hover:text-white cursor-pointer"
+                  >
+                    {showPassword ? <EyeOff className="h-5 w-5" /> : <Eye className="h-5 w-5" />}
+                  </div>
                 </div>
               </div>
 
@@ -223,13 +239,19 @@ const Signup = () => {
                   </span>
                   <input
                     name="confirmPassword"
-                    type="password"
+                    type={showConfirmPassword ? "text" : "password"}
                     required
                     value={formData.confirmPassword}
                     onChange={handleChange}
                     placeholder="••••••••"
-                    className="block w-full rounded-xl bg-dark-900 border border-dark-800 py-3 pl-10 pr-3 text-white placeholder-dark-500 focus:border-brand-500 focus:outline-none focus:ring-1 focus:ring-brand-500 text-sm transition-colors"
+                    className="block w-full rounded-xl bg-dark-900 border border-dark-800 py-3 pl-10 pr-10 text-white placeholder-dark-500 focus:border-brand-500 focus:outline-none focus:ring-1 focus:ring-brand-500 text-sm transition-colors"
                   />
+                  <div
+                    onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                    className="absolute inset-y-0 right-0 flex items-center pr-3 text-dark-400 hover:text-white cursor-pointer"
+                  >
+                    {showConfirmPassword ? <EyeOff className="h-5 w-5" /> : <Eye className="h-5 w-5" />}
+                  </div>
                 </div>
               </div>
             </div>
