@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 
+
 import { useAuth } from '../context/AuthContext';
-import { UserPlus, User, Hash, GraduationCap, School, Mail, Lock, AlertCircle, Eye, EyeOff } from 'lucide-react';
+import { UserPlus, User, Hash, GraduationCap, School, Mail, Lock, AlertCircle, Eye, EyeOff, ChevronDown } from 'lucide-react';
 import { FaReact } from 'react-icons/fa';
 import Header from '../components/Header';
 
