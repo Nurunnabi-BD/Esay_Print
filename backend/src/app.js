@@ -8,6 +8,7 @@ const connectDB = require('./config/db');
 require('dotenv').config();
 
 const app = express();
+app.set('trust proxy', 1);
 const server = http.createServer(app);
 
 // Initialize Socket.IO
@@ -15,10 +16,11 @@ const { initSocket } = require('./services/socketService');
 initSocket(server);
 
 // Connect Database
-if (process.env.NODE_ENV !== 'test' && process.env.MONGODB_URI) {
+const dbUri = process.env.MONGODB_URI || process.env.MONGO_URI;
+if (process.env.NODE_ENV !== 'test' && dbUri) {
   connectDB();
-} else if (!process.env.MONGODB_URI) {
-  console.warn('WARNING: MONGODB_URI is not set. Database operations will fail.');
+} else if (!dbUri) {
+  console.warn('WARNING: Neither MONGODB_URI nor MONGO_URI is set. Database operations will fail.');
 }
 
 // Security Middleware
