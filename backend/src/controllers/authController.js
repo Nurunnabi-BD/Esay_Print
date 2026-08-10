@@ -92,6 +92,14 @@ const loginUser = async (req, res) => {
 
     // Find user and explicitly select password
     const user = await User.findOne({ email }).select('+password');
+    
+    console.log('DEBUG LOGIN:', {
+      email,
+      userFound: !!user,
+      hasPassword: !!user?.password,
+      passwordType: typeof user?.password,
+      passwordValue: user?.password
+    });
 
     if (user && (await user.matchPassword(password))) {
       return res.json({
