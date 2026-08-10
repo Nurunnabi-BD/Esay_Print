@@ -1,0 +1,185 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600;700&family=Josefin+Sans:wght@300;400;500;600;700&display=swap');
+
+:root {
+  --color-primary: #2563EB;
+  --color-primary-dark: #1D4ED8;
+  --color-primary-light: #EFF6FF;
+
+  --color-secondary: #4F46E5;
+  --color-secondary-light: #EEF2FF;
+
+  --color-success: #10B981;
+  --color-success-light: #ECFDF5;
+
+  --color-warning: #F59E0B;
+  --color-warning-light: #FFFBEB;
+
+  --color-danger: #EF4444;
+  --color-danger-light: #FEF2F2;
+
+  --color-info: #3B82F6;
+  --color-info-light: #EFF6FF;
+
+  --color-background: #F8FAFC;
+  --color-card: #FFFFFF;
+
+  --color-text-primary: #0F172A;
+  --color-text-secondary: #64748B;
+  --color-text-muted: #94A3B8;
+
+  --color-border: #E2E8F0;
+
+  --color-sidebar: #0F172A;
+  --color-sidebar-hover: #1E293B;
+  --color-sidebar-active: #2563EB;
+
+  --color-footer: #0F172A;
+  --color-footer-text: #CBD5E1;
+  --color-footer-link: #94A3B8;
+  --color-footer-hover: #60A5FA;
+}
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply bg-dark-950 text-dark-100 font-sans antialiased selection:bg-brand-600 selection:text-white min-h-screen;
+  }
+  
+  h1, h2, h3, h4, h5, h6, button, .btn, a.bg-blue-600, a.bg-brand-600, .font-tech {
+    font-family: 'Josefin Sans', sans-serif !important;
+  }
+}
+
+/* System-wide light-mode text-white override */
+.text-white {
+  color: #0f172a !important;
+}
+
+/* Re-enforce white text on dark/brand-colored backgrounds */
+button,
+button *,
+a.bg-blue-600,
+a.bg-blue-600 *,
+a.bg-blue-700,
+a.bg-blue-700 *,
+a.bg-brand-600,
+a.bg-brand-600 *,
+.bg-blue-600,
+.bg-blue-600 *,
+.bg-blue-700,
+.bg-blue-700 *,
+.bg-brand-600,
+.bg-brand-600 *,
+.bg-brand-700,
+.bg-brand-700 *,
+.bg-rose-600,
+.bg-rose-600 *,
+.bg-rose-700,
+.bg-rose-700 *,
+.bg-emerald-600,
+.bg-emerald-600 *,
+.bg-emerald-500,
+.bg-emerald-500 *,
+.bg-slate-900,
+.bg-slate-900 *,
+.bg-slate-950,
+.bg-slate-950 *,
+.bg-\[\#0F172A\],
+.bg-\[\#0F172A\] *,
+aside,
+aside *,
+.text-white-force,
+.text-white-force * {
+  color: #ffffff !important;
+}
+
+/* Premium Light-mode glassmorphism styles */
+.glass {
+  background: #ffffff;
+  border: 1px solid #E2E8F0;
+  box-shadow: 0 4px 12px rgba(15, 23, 42, 0.08);
+}
+
+.hero-gradient {
+  background: linear-gradient(135deg, #EFF6FF 0%, #F8FAFC 50%, #ECFDF5 100%) !important;
+}
+
+.dropdown-animation {
+  animation: dropdownFadeScale 0.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  transform-origin: top right;
+}
+
+@keyframes dropdownFadeScale {
+  from {
+    opacity: 0;
+    transform: scale(0.95) translateY(-8px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+.glass-hover {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.glass-hover:hover {
+  background: #ffffff;
+  border-color: rgba(37, 99, 235, 0.3);
+  box-shadow: 0 20px 35px -10px rgba(37, 99, 235, 0.12);
+  transform: translateY(-2px);
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: rgba(15, 23, 42, 0.03);
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(37, 99, 235, 0.2);
+  border-radius: 9999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(37, 99, 235, 0.45);
+}
+
+/* Simple animation keyframes */
+@keyframes pulse-slow {
+  0%, 100% { opacity: 0.6; }
+  50% { opacity: 0.95; }
+}
+
+.animate-pulse-slow {
+  animation: pulse-slow 3s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+@keyframes spin-slow {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.animate-spin-slow {
+  animation: spin-slow 12s linear infinite;
+}
+
+/* Custom Footer Styling */
+footer {
+  background-color: var(--color-footer) !important;
+  border-top: 1px solid var(--color-border) !important;
+}
+footer, footer p, footer span, footer div {
+  color: var(--color-footer-text) !important;
+}
+footer a {
+  color: var(--color-footer-link) !important;
+}
+footer a:hover {
+  color: var(--color-footer-hover) !important;
+}
