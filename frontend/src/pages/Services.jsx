@@ -57,7 +57,7 @@ const Services = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-white text-slate-900 font-sans flex flex-col justify-between">
+    <div className="min-h-screen bg-white dark:bg-dark-900 text-slate-900 dark:text-white font-sans flex flex-col justify-between transition-colors duration-300">
       {/* Global Header */}
       <Header />
 
@@ -65,14 +65,14 @@ const Services = () => {
       <main className="flex-1 w-full max-w-7xl mx-auto px-6 py-12 md:py-16 flex flex-col lg:flex-row items-center gap-12 relative overflow-hidden">
         {/* Left column info */}
         <div className="flex-1 space-y-6 text-left max-w-xl">
-          <span className="text-xs font-black text-blue-600 tracking-widest uppercase bg-blue-50 border border-blue-105 px-3 py-1 rounded-full">
+          <span className="text-xs font-black text-blue-600 dark:text-blue-450 tracking-widest uppercase bg-blue-50 dark:bg-blue-950/40 border border-blue-105 dark:border-blue-900/40 px-3 py-1 rounded-full">
             Our Services
           </span>
-          <h1 className="text-4xl md:text-5xl font-black tracking-tight text-slate-950 leading-tight">
+          <h1 className="text-4xl md:text-5xl font-black tracking-tight text-slate-950 dark:text-white leading-tight">
             Printing Solutions <br/>
-            Made <span className="text-blue-600 bg-blue-50/50 px-2 py-0.5 rounded-xl border border-blue-100">Simple</span>
+            Made <span className="text-blue-600 bg-blue-50/50 dark:bg-blue-950/40 px-2 py-0.5 rounded-xl border border-blue-100 dark:border-blue-900/40">Simple</span>
           </h1>
-          <p className="text-slate-500 leading-relaxed text-sm">
+          <p className="text-slate-500 dark:text-dark-400 leading-relaxed text-sm">
             We offer a wide range of printing services to meet your personal, academic, and business needs. High fidelity, fast turnaround, and real-time processing directly from your student portal.
           </p>
           
@@ -86,7 +86,7 @@ const Services = () => {
             </Link>
             <a
               href="/#how-it-works"
-              className="flex items-center gap-2 rounded-xl border border-slate-200 px-6 py-3.5 text-xs font-bold text-slate-700 hover:bg-slate-50 hover:text-blue-600 hover:border-blue-200 transition-all"
+              className="flex items-center gap-2 rounded-xl border border-slate-200 dark:border-dark-800 px-6 py-3.5 text-xs font-bold text-slate-700 dark:text-dark-300 hover:bg-slate-50 dark:hover:bg-dark-800 hover:text-blue-600 hover:border-blue-200 transition-all"
             >
               <Play className="h-4.5 w-4.5 text-blue-600" />
               How It Works
@@ -98,7 +98,7 @@ const Services = () => {
         <div className="flex-1 w-full flex justify-center lg:justify-end relative">
           <div className="relative w-full max-w-lg aspect-square flex items-center justify-center bg-gradient-to-tr from-blue-50/30 via-slate-50/20 to-emerald-50/10 rounded-full">
             {/* Visual 3D Printer Mockup */}
-            <div className="relative bg-white border border-slate-100 p-4 rounded-[40px] shadow-2xl w-[90%] max-w-[420px] transform hover:scale-[1.01] transition-transform">
+            <div className="relative bg-white dark:bg-dark-950 border border-slate-100 dark:border-dark-800 p-4 rounded-[40px] shadow-2xl w-[90%] max-w-[420px] transform hover:scale-[1.01] transition-transform">
               <img 
                 src="/services_printer.jpg" 
                 alt="PrintFlow 3D Smart Printer" 
@@ -141,7 +141,7 @@ const Services = () => {
               return (
                 <div 
                   key={idx} 
-                  className="bg-white rounded-3xl p-5 border border-slate-150 shadow-sm flex flex-col justify-between hover:shadow-md hover:border-blue-500/20 transition-all hover:-translate-y-1 group relative overflow-hidden"
+                  className="bg-white dark:bg-dark-950 rounded-3xl p-5 border border-slate-150 dark:border-dark-850 shadow-sm flex flex-col justify-between hover:shadow-md hover:border-blue-500/20 transition-all hover:-translate-y-1 group relative overflow-hidden"
                 >
                   <div className="space-y-4">
                     {/* Circle Icon */}
@@ -150,8 +150,8 @@ const Services = () => {
                     </div>
                     {/* Content */}
                     <div className="space-y-2 text-left">
-                      <h4 className="text-xs font-black text-slate-900 leading-tight">{srv.title}</h4>
-                      <p className="text-[10px] text-slate-500 font-medium leading-relaxed">
+                      <h4 className="text-xs font-black text-slate-900 dark:text-white leading-tight">{srv.title}</h4>
+                      <p className="text-[10px] text-slate-500 dark:text-dark-400 font-medium leading-relaxed">
                         {srv.desc}
                       </p>
                     </div>
@@ -167,60 +167,60 @@ const Services = () => {
       </section>
 
       {/* Trust Feature Row */}
-      <section className="border-t border-slate-100 py-10 bg-white">
+      <section className="border-t border-slate-100 dark:border-dark-850 py-10 bg-white dark:bg-dark-900">
         <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
           <div className="flex items-center gap-3.5 text-left">
-            <div className="h-10 w-10 rounded-full bg-blue-600/10 border border-blue-500/20 flex items-center justify-center text-blue-650 shrink-0 shadow-sm">
+            <div className="h-10 w-10 rounded-full bg-blue-600/10 dark:bg-blue-950/20 border border-blue-500/20 dark:border-blue-900/30 flex items-center justify-center text-blue-650 dark:text-blue-450 shrink-0 shadow-sm">
               <ShieldCheck className="h-5 w-5" />
             </div>
             <div>
-              <h5 className="text-xs font-black text-slate-900 leading-none">Secure & Private</h5>
-              <p className="text-[9px] text-slate-500 font-semibold mt-1">Your files are safe with us. We never share data.</p>
+              <h5 className="text-xs font-black text-slate-900 dark:text-white leading-none">Secure & Private</h5>
+              <p className="text-[9px] text-slate-500 dark:text-dark-400 font-semibold mt-1">Your files are safe with us. We never share data.</p>
             </div>
           </div>
 
           <div className="flex items-center gap-3.5 text-left">
-            <div className="h-10 w-10 rounded-full bg-blue-600/10 border border-blue-500/20 flex items-center justify-center text-blue-650 shrink-0 shadow-sm">
+            <div className="h-10 w-10 rounded-full bg-blue-600/10 dark:bg-blue-950/20 border border-blue-500/20 dark:border-blue-900/30 flex items-center justify-center text-blue-650 dark:text-blue-450 shrink-0 shadow-sm">
               <Award className="h-5 w-5" />
             </div>
             <div>
-              <h5 className="text-xs font-black text-slate-900 leading-none">High Quality Prints</h5>
-              <p className="text-[9px] text-slate-500 font-semibold mt-1">We use top-quality printers and premium materials.</p>
+              <h5 className="text-xs font-black text-slate-900 dark:text-white leading-none">High Quality Prints</h5>
+              <p className="text-[9px] text-slate-500 dark:text-dark-400 font-semibold mt-1">We use top-quality printers and premium materials.</p>
             </div>
           </div>
 
           <div className="flex items-center gap-3.5 text-left">
-            <div className="h-10 w-10 rounded-full bg-blue-600/10 border border-blue-500/20 flex items-center justify-center text-blue-650 shrink-0 shadow-sm">
+            <div className="h-10 w-10 rounded-full bg-blue-600/10 dark:bg-blue-950/20 border border-blue-500/20 dark:border-blue-900/30 flex items-center justify-center text-blue-650 dark:text-blue-450 shrink-0 shadow-sm">
               <Clock className="h-5 w-5" />
             </div>
             <div>
-              <h5 className="text-xs font-black text-slate-900 leading-none">Fast & Reliable</h5>
-              <p className="text-[9px] text-slate-500 font-semibold mt-1">Quick turnaround and on-time delivery.</p>
+              <h5 className="text-xs font-black text-slate-900 dark:text-white leading-none">Fast & Reliable</h5>
+              <p className="text-[9px] text-slate-500 dark:text-dark-400 font-semibold mt-1">Quick turnaround and on-time delivery.</p>
             </div>
           </div>
 
           <div className="flex items-center gap-3.5 text-left">
-            <div className="h-10 w-10 rounded-full bg-blue-600/10 border border-blue-500/20 flex items-center justify-center text-blue-650 shrink-0 shadow-sm">
+            <div className="h-10 w-10 rounded-full bg-blue-600/10 dark:bg-blue-950/20 border border-blue-500/20 dark:border-blue-900/30 flex items-center justify-center text-blue-650 dark:text-blue-450 shrink-0 shadow-sm">
               <Headphones className="h-5 w-5" />
             </div>
             <div>
-              <h5 className="text-xs font-black text-slate-900 leading-none">24/7 Support</h5>
-              <p className="text-[9px] text-slate-500 font-semibold mt-1">We're here to help you anytime, anywhere.</p>
+              <h5 className="text-xs font-black text-slate-900 dark:text-white leading-none">24/7 Support</h5>
+              <p className="text-[9px] text-slate-500 dark:text-dark-400 font-semibold mt-1">We're here to help you anytime, anywhere.</p>
             </div>
           </div>
         </div>
       </section>
 
       {/* Footer */}
-      <footer className="border-t border-slate-100 bg-slate-50 py-6">
-        <div className="max-w-7xl mx-auto px-6 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs font-bold text-slate-500">
+      <footer className="border-t border-slate-100 dark:border-dark-850 bg-slate-50 dark:bg-dark-950 py-6 transition-colors duration-300">
+        <div className="max-w-7xl mx-auto px-6 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs font-bold text-slate-500 dark:text-dark-450">
           <div className="flex items-center gap-2">
             <FaReact className="h-4.5 w-4.5 text-blue-600 animate-spin-slow" />
             <span>© {new Date().getFullYear()} PrintFlow. All rights reserved.</span>
           </div>
           <div className="flex gap-6">
-            <a href="#privacy" className="hover:text-blue-650 transition-colors">Privacy Policy</a>
-            <a href="#terms" className="hover:text-blue-650 transition-colors">Terms of Service</a>
+            <a href="#privacy" className="hover:text-blue-650 dark:hover:text-blue-400 transition-colors">Privacy Policy</a>
+            <a href="#terms" className="hover:text-blue-650 dark:hover:text-blue-400 transition-colors">Terms of Service</a>
           </div>
         </div>
       </footer>

@@ -65,9 +65,8 @@ const AdminLayout = ({ children }) => {
       ]
     }
   ];
-
   return (
-    <div className="min-h-screen bg-slate-50 flex flex-col text-slate-900 font-sans">
+    <div className="min-h-screen bg-slate-50 dark:bg-dark-900 flex flex-col text-slate-900 dark:text-white font-sans transition-colors duration-300">
       {/* Shared Global Brand Header */}
       <Header />
 
@@ -172,9 +171,8 @@ const AdminLayout = ({ children }) => {
             </button>
           </div>
         </aside>
-
         {/* Main Content Pane */}
-        <main className="flex-1 p-6 md:p-8 bg-slate-50 overflow-y-auto relative">
+        <main className="flex-1 p-6 md:p-8 bg-slate-50 dark:bg-dark-900 overflow-y-auto relative transition-colors duration-300">
           {sidebarOpen && (
             <div
               onClick={() => setSidebarOpen(false)}

@@ -114,7 +114,6 @@ aside *,
 .text-white-force * {
   color: #ffffff !important;
 }
-
 /* Premium Light-mode glassmorphism styles */
 .glass {
   background: #ffffff;
@@ -122,8 +121,18 @@ aside *,
   box-shadow: 0 4px 12px rgba(15, 23, 42, 0.08);
 }
 
+.dark .glass {
+  background: var(--color-card) !important;
+  border: 1px solid var(--color-border) !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.35) !important;
+}
+
 .hero-gradient {
   background: linear-gradient(135deg, #EFF6FF 0%, #F8FAFC 50%, #ECFDF5 100%) !important;
+}
+
+.dark .hero-gradient {
+  background: linear-gradient(135deg, #1E3A8A 0%, #111827 50%, #064E3B 100%) !important;
 }
 
 .dropdown-animation {

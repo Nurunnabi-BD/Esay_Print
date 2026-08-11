@@ -77,7 +77,7 @@ const UserLayout = ({ children }) => {
   ];
 
   return (
-    <div className="min-h-screen bg-slate-50 flex flex-col text-slate-900 font-sans">
+    <div className="min-h-screen bg-slate-50 dark:bg-dark-900 flex flex-col text-slate-900 dark:text-white font-sans transition-colors duration-300">
       {/* Global Brand Header */}
       <Header />
 
@@ -202,9 +202,8 @@ const UserLayout = ({ children }) => {
             </div>
           </div>
         </aside>
-
         {/* Main Content Pane */}
-        <main className="flex-1 overflow-x-hidden p-6 md:p-8 bg-slate-50 relative">
+        <main className="flex-1 overflow-x-hidden p-6 md:p-8 bg-slate-50 dark:bg-dark-900 transition-colors duration-300 relative">
           {sidebarOpen && (
             <div
               onClick={() => setSidebarOpen(false)}
