@@ -67,7 +67,7 @@ export default {
           600: 'var(--color-text-muted)',
           700: 'var(--color-footer-text)',
           800: 'var(--color-border)',
-          850: '#f1f5f9',
+          850: '#1e293b',
           900: 'var(--color-background)',
           950: 'var(--color-card)',
         }

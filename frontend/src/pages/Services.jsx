@@ -123,7 +123,7 @@ const Services = () => {
         </div>
       </main>
       {/* Our Services Section */}
-      <section className="bg-slate-50/50 dark:bg-dark-950/20 py-16 border-t border-slate-100 dark:border-dark-850">
+      <section className="bg-slate-50/50 dark:bg-[#0B0F19]/65 py-16 border-t border-slate-100 dark:border-dark-800">
         <div className="max-w-7xl mx-auto px-6 text-center space-y-12">
           {/* Header */}
           <div className="space-y-3">
