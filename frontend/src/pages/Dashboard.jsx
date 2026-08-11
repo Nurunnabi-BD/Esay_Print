@@ -277,14 +277,13 @@ const Dashboard = () => {
   if (viewMode === 'overview') {
     return (
       <div className="space-y-6">
-        
         {/* 1. Welcome Banner */}
-        <div className="relative hero-gradient border border-slate-150 rounded-[32px] p-8 flex flex-col md:flex-row items-center justify-between gap-6 overflow-hidden">
+        <div className="relative hero-gradient border border-slate-150 dark:border-dark-800 rounded-[32px] p-8 flex flex-col md:flex-row items-center justify-between gap-6 overflow-hidden">
           <div className="space-y-3 text-left max-w-lg relative z-10">
-            <h1 className="text-3xl font-bold text-[#0F172A] leading-tight">
-              Welcome back, <span className="text-[#2563EB]">{user?.name?.split(' ')[0] || 'Student'}</span>! 👋
+            <h1 className="text-3xl font-bold text-[#0F172A] dark:text-white leading-tight">
+              Welcome back, <span className="text-[#2563EB] dark:text-blue-400">{user?.name?.split(' ')[0] || 'Student'}</span>! 👋
             </h1>
-            <p className="text-sm text-[#64748B] font-medium leading-relaxed">
+            <p className="text-sm text-[#64748B] dark:text-dark-300 font-medium leading-relaxed">
               Upload your documents and get high quality prints delivered to your doorstep.
             </p>
           </div>
@@ -292,71 +291,69 @@ const Dashboard = () => {
           {/* Visual Illustrator */}
           <div className="relative h-32 w-52 overflow-visible hidden md:flex items-center justify-center shrink-0">
             <div className="absolute inset-0 bg-gradient-to-tr from-blue-500/10 to-emerald-500/5 rounded-full blur-xl"></div>
-            <FaReact className="h-20 w-20 text-blue-600 animate-spin-slow opacity-25" />
+            <FaReact className="h-20 w-20 text-blue-600 dark:text-blue-400 animate-spin-slow opacity-25" />
           </div>
         </div>
 
         {/* 2. Four Metrics Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
           {/* Card 1: Total Orders */}
-          <div className="glass rounded-3xl p-5 border border-slate-150 shadow-sm flex items-center justify-between bg-white">
+          <div className="glass rounded-3xl p-5 border border-slate-150 dark:border-dark-800 shadow-sm flex items-center justify-between bg-white dark:bg-dark-950">
             <div className="space-y-2 text-left">
-              <span className="text-[10px] font-bold text-slate-500 uppercase tracking-widest block">Total Orders</span>
-              <h3 className="text-3xl font-black text-slate-900 leading-none">{totalOrders}</h3>
-              <span className="text-[10px] text-slate-400 font-bold block mt-1">All time orders</span>
+              <span className="text-[10px] font-bold text-slate-500 dark:text-dark-400 uppercase tracking-widest block">Total Orders</span>
+              <h3 className="text-3xl font-black text-slate-900 dark:text-white leading-none">{totalOrders}</h3>
+              <span className="text-[10px] text-slate-400 dark:text-dark-550 block mt-1 font-bold">All time orders</span>
             </div>
-            <div className="h-12 w-12 rounded-2xl bg-blue-50 text-blue-600 flex items-center justify-center shrink-0">
+            <div className="h-12 w-12 rounded-2xl bg-blue-50 dark:bg-blue-950/40 text-blue-600 dark:text-blue-400 flex items-center justify-center shrink-0">
               <ShoppingBag className="h-6 w-6" />
             </div>
           </div>
 
           {/* Card 2: Pending Orders */}
-          <div className="glass rounded-3xl p-5 border border-slate-150 shadow-sm flex items-center justify-between bg-white">
+          <div className="glass rounded-3xl p-5 border border-slate-150 dark:border-dark-800 shadow-sm flex items-center justify-between bg-white dark:bg-dark-950">
             <div className="space-y-2 text-left">
-              <span className="text-[10px] font-bold text-slate-500 uppercase tracking-widest block">Pending Orders</span>
-              <h3 className="text-3xl font-black text-slate-900 leading-none">{pendingOrders}</h3>
-              <span className="text-[10px] text-amber-500 font-bold block mt-1">Awaiting processing</span>
+              <span className="text-[10px] font-bold text-slate-500 dark:text-dark-400 uppercase tracking-widest block">Pending Orders</span>
+              <h3 className="text-3xl font-black text-slate-900 dark:text-white leading-none">{pendingOrders}</h3>
+              <span className="text-[10px] text-amber-500 dark:text-amber-450 block mt-1 font-bold">Awaiting processing</span>
             </div>
-            <div className="h-12 w-12 rounded-2xl bg-amber-50 text-amber-500 flex items-center justify-center shrink-0">
+            <div className="h-12 w-12 rounded-2xl bg-amber-50 dark:bg-amber-950/45 text-amber-500 dark:text-amber-400 flex items-center justify-center shrink-0">
               <Clock className="h-6 w-6" />
             </div>
           </div>
 
           {/* Card 3: Completed Orders */}
-          <div className="glass rounded-3xl p-5 border border-slate-150 shadow-sm flex items-center justify-between bg-white">
+          <div className="glass rounded-3xl p-5 border border-slate-150 dark:border-dark-800 shadow-sm flex items-center justify-between bg-white dark:bg-dark-950">
             <div className="space-y-2 text-left">
-              <span className="text-[10px] font-bold text-slate-500 uppercase tracking-widest block">Completed Orders</span>
-              <h3 className="text-3xl font-black text-slate-900 leading-none">{completedOrders}</h3>
-              <span className="text-[10px] text-emerald-500 font-bold block mt-1">Successfully delivered</span>
+              <span className="text-[10px] font-bold text-slate-500 dark:text-dark-400 uppercase tracking-widest block">Completed Orders</span>
+              <h3 className="text-3xl font-black text-slate-900 dark:text-white leading-none">{completedOrders}</h3>
+              <span className="text-[10px] text-emerald-500 dark:text-emerald-450 block mt-1 font-bold">Successfully delivered</span>
             </div>
-            <div className="h-12 w-12 rounded-2xl bg-emerald-50 text-emerald-500 flex items-center justify-center shrink-0">
+            <div className="h-12 w-12 rounded-2xl bg-emerald-50 dark:bg-emerald-950/45 text-emerald-500 dark:text-emerald-400 flex items-center justify-center shrink-0">
               <CheckCircle className="h-6 w-6" />
             </div>
           </div>
 
           {/* Card 4: Total Spent */}
-          <div className="glass rounded-3xl p-5 border border-slate-150 shadow-sm flex items-center justify-between bg-white">
+          <div className="glass rounded-3xl p-5 border border-slate-150 dark:border-dark-800 shadow-sm flex items-center justify-between bg-white dark:bg-dark-950">
             <div className="space-y-2 text-left">
-              <span className="text-[10px] font-bold text-slate-500 uppercase tracking-widest block">Total Spent</span>
-              <h3 className="text-3xl font-black text-slate-900 leading-none">{totalSpent.toFixed(2)} BDT</h3>
-              <span className="text-[10px] text-purple-500 font-bold block mt-1">All time spent</span>
+              <span className="text-[10px] font-bold text-slate-500 dark:text-dark-400 uppercase tracking-widest block">Total Spent</span>
+              <h3 className="text-3xl font-black text-slate-900 dark:text-white leading-none">{totalSpent.toFixed(2)} BDT</h3>
+              <span className="text-[10px] text-purple-500 dark:text-purple-450 block mt-1 font-bold">All time spent</span>
             </div>
-            <div className="h-12 w-12 rounded-2xl bg-purple-50 text-purple-500 flex items-center justify-center shrink-0">
+            <div className="h-12 w-12 rounded-2xl bg-purple-50 dark:bg-purple-950/45 text-purple-500 dark:text-purple-400 flex items-center justify-center shrink-0">
               <Wallet className="h-6 w-6" />
             </div>
           </div>
         </div>
-
         {/* 3. Center Dashboard Split Layout */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
-          
-          {/* Main Left column: Recent Orders Table */}
-          <div className="lg:col-span-8 glass rounded-3xl bg-white border border-slate-150 p-6 shadow-sm space-y-6">
+                    {/* Main Left column: Recent Orders Table */}
+          <div className="lg:col-span-8 glass rounded-3xl bg-white dark:bg-dark-950 border border-slate-150 dark:border-dark-800 p-6 shadow-sm space-y-6">
             <div className="flex justify-between items-center pb-2">
-              <h3 className="text-sm font-black text-slate-900">Recent Orders</h3>
+              <h3 className="text-sm font-black text-slate-900 dark:text-white">Recent Orders</h3>
               <Link 
                 to="/my-orders"
-                className="text-[10px] font-bold border border-slate-200 px-3.5 py-1.5 rounded-xl hover:bg-slate-50 transition-colors text-slate-700"
+                className="text-[10px] font-bold border border-slate-200 dark:border-dark-800 px-3.5 py-1.5 rounded-xl hover:bg-slate-50 dark:hover:bg-dark-900 transition-colors text-slate-700 dark:text-dark-300"
               >
                 View All Orders
               </Link>
@@ -365,7 +362,7 @@ const Dashboard = () => {
             <div className="overflow-x-auto">
               <table className="w-full text-left border-collapse min-w-[600px]">
                 <thead>
-                  <tr className="bg-slate-50 border-y border-slate-200 text-[10px] font-bold text-slate-600 uppercase tracking-widest">
+                  <tr className="bg-slate-50 dark:bg-dark-900/60 border-y border-slate-200 dark:border-dark-800 text-[10px] font-bold text-slate-600 dark:text-dark-400 uppercase tracking-widest">
                     <th className="py-3 px-4">Order ID</th>
                     <th className="py-3 px-4">File Name</th>
                     <th className="py-3 px-4 text-center">Pages</th>
@@ -376,34 +373,34 @@ const Dashboard = () => {
                     <th className="py-3 px-4 text-center">Actions</th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-slate-100 text-xs font-semibold text-slate-700">
+                <tbody className="divide-y divide-slate-100 dark:divide-dark-800 text-xs font-semibold text-slate-700 dark:text-dark-300">
                   {orders.length === 0 ? (
                     <tr>
-                      <td colSpan="8" className="py-12 text-center text-slate-400 text-xs font-medium">
+                      <td colSpan="8" className="py-12 text-center text-slate-400 dark:text-dark-500 text-xs font-medium">
                         No orders recorded yet. Let's upload a document!
                       </td>
                     </tr>
                   ) : (
                     orders.slice(0, 5).map((order) => (
-                      <tr key={order._id} className="hover:bg-slate-50 transition-colors">
-                        <td className="py-4 px-4 text-slate-900 font-extrabold">#{order.orderId}</td>
+                      <tr key={order._id} className="hover:bg-slate-50 dark:hover:bg-dark-900 transition-colors">
+                        <td className="py-4 px-4 text-slate-900 dark:text-white font-extrabold">#{order.orderId}</td>
                         <td className="py-4 px-4 max-w-[160px] truncate">
                           <div className="flex items-center gap-2 overflow-hidden">
                             <span className={`px-1.5 py-0.5 rounded text-[8px] font-black uppercase shrink-0 ${getFileBadge(order.documentId?.originalName)}`}>
                               {order.documentId?.extension?.slice(1) || 'file'}
                             </span>
-                            <span className="truncate text-slate-800 font-bold">{order.documentId?.originalName || 'Deleted File'}</span>
+                            <span className="truncate text-slate-800 dark:text-dark-200 font-bold">{order.documentId?.originalName || 'Deleted File'}</span>
                           </div>
                         </td>
-                        <td className="py-4 px-4 text-center font-extrabold text-slate-900">{order.pages}</td>
-                        <td className="py-4 px-4 text-center font-bold text-slate-500">×{order.copies}</td>
+                        <td className="py-4 px-4 text-center font-extrabold text-slate-900 dark:text-white">{order.pages}</td>
+                        <td className="py-4 px-4 text-center font-bold text-slate-500 dark:text-dark-400">×{order.copies}</td>
                         <td className="py-4 px-4 text-center">
                           <span className={`px-2.5 py-1 rounded-lg text-[9px] font-black uppercase inline-block ${getStatusBadge(order.status)}`}>
                             {order.status === 'Order Received' ? 'Received' : order.status}
                           </span>
                         </td>
-                        <td className="py-4 px-4 text-right font-black text-slate-900">{order.totalCost} BDT</td>
-                        <td className="py-4 px-4 text-[10px] text-slate-500">
+                        <td className="py-4 px-4 text-right font-black text-slate-900 dark:text-white">{order.totalCost} BDT</td>
+                        <td className="py-4 px-4 text-[10px] text-slate-500 dark:text-dark-400">
                           {new Date(order.createdAt).toLocaleDateString([], { month: 'short', day: '2-digit' })}{' '}
                           {new Date(order.createdAt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: true })}
                         </td>
@@ -411,7 +408,7 @@ const Dashboard = () => {
                           <div className="flex items-center justify-center gap-1.5">
                             <Link 
                               to={`/orders/${order._id}`} 
-                              className="p-1.5 hover:bg-[#EFF6FF] rounded-lg text-slate-500 hover:text-[#2563EB] transition-all"
+                              className="p-1.5 hover:bg-[#EFF6FF] dark:hover:bg-blue-950/40 rounded-lg text-slate-500 dark:text-dark-400 hover:text-[#2563EB] dark:hover:text-blue-400 transition-all"
                               title="View details"
                             >
                               <Eye className="h-4 w-4" />
@@ -419,7 +416,7 @@ const Dashboard = () => {
                             {order.documentId?.fileUrl && (
                               <div 
                                 onClick={() => window.open(order.documentId.fileUrl, '_blank')}
-                                className="p-1.5 hover:bg-[#EFF6FF] rounded-lg text-slate-500 hover:text-[#2563EB] transition-all cursor-pointer"
+                                className="p-1.5 hover:bg-[#EFF6FF] dark:hover:bg-blue-950/40 rounded-lg text-slate-500 dark:text-dark-400 hover:text-[#2563EB] dark:hover:text-blue-400 transition-all cursor-pointer"
                                 title="Download file"
                               >
                                 <Download className="h-4 w-4" />
@@ -428,7 +425,7 @@ const Dashboard = () => {
                             {order.status === 'Order Received' && (
                               <div 
                                 onClick={() => handleCancelOrder(order._id)}
-                                className={`p-1.5 hover:bg-[#FEF2F2] rounded-lg text-slate-500 hover:text-[#EF4444] transition-all cursor-pointer ${cancellingOrder ? 'opacity-50 pointer-events-none' : ''}`}
+                                className={`p-1.5 hover:bg-[#FEF2F2] dark:hover:bg-red-950/40 rounded-lg text-slate-500 dark:text-dark-400 hover:text-[#EF4444] dark:hover:text-red-400 transition-all cursor-pointer ${cancellingOrder ? 'opacity-50 pointer-events-none' : ''}`}
                                 title="Cancel order"
                               >
                                 <X className="h-4 w-4" />
@@ -448,8 +445,8 @@ const Dashboard = () => {
           <div className="lg:col-span-4 space-y-6">
             
             {/* Widget 1: Quick Actions */}
-            <div className="glass rounded-3xl bg-white border border-slate-150 p-5 shadow-sm space-y-4 text-left">
-              <h4 className="text-xs font-black text-slate-900 border-b border-slate-100 pb-2 uppercase tracking-wide">
+            <div className="glass rounded-3xl bg-white dark:bg-dark-950 border border-slate-150 dark:border-dark-800 p-5 shadow-sm space-y-4 text-left">
+              <h4 className="text-xs font-black text-slate-900 dark:text-white border-b border-slate-100 dark:border-dark-800 pb-2 uppercase tracking-wide">
                 Quick Actions
               </h4>
               <div className="space-y-2.5">
@@ -462,29 +459,27 @@ const Dashboard = () => {
                 </button>
                 <Link 
                   to="/my-orders"
-                  className="w-full flex items-center justify-center gap-2 rounded-xl border border-slate-200 text-xs font-bold text-slate-700 py-3 hover:bg-slate-50 transition-colors"
+                  className="w-full flex items-center justify-center gap-2 rounded-xl border border-slate-200 dark:border-dark-800 text-xs font-bold text-slate-700 dark:text-dark-300 py-3 hover:bg-slate-50 dark:hover:bg-dark-900 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
                 >
-                  <FileText className="h-4.5 w-4.5 text-slate-500" />
+                  <FileText className="h-4.5 w-4.5 text-slate-500 dark:text-dark-400" />
                   My Orders
                 </Link>
                 <Link 
                   to="/profile"
-                  className="w-full flex items-center justify-center gap-2 rounded-xl border border-slate-200 text-xs font-bold text-slate-700 py-3 hover:bg-slate-50 transition-colors"
+                  className="w-full flex items-center justify-center gap-2 rounded-xl border border-slate-200 dark:border-dark-800 text-xs font-bold text-slate-700 dark:text-dark-300 py-3 hover:bg-slate-50 dark:hover:bg-dark-900 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
                 >
-                  <MapPin className="h-4.5 w-4.5 text-slate-500" />
+                  <MapPin className="h-4.5 w-4.5 text-slate-500 dark:text-dark-400" />
                   Address Book
                 </Link>
                 <Link 
                   to="/profile"
-                  className="w-full flex items-center justify-center gap-2 rounded-xl border border-slate-200 text-xs font-bold text-slate-700 py-3 hover:bg-slate-50 transition-colors"
+                  className="w-full flex items-center justify-center gap-2 rounded-xl border border-slate-200 dark:border-dark-800 text-xs font-bold text-slate-700 dark:text-dark-300 py-3 hover:bg-slate-50 dark:hover:bg-dark-900 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
                 >
-                  <CreditCard className="h-4.5 w-4.5 text-slate-500" />
+                  <CreditCard className="h-4.5 w-4.5 text-slate-500 dark:text-dark-400" />
                   Payment Methods
                 </Link>
               </div>
             </div>
-
-
 
           </div>
 
@@ -505,22 +500,22 @@ const Dashboard = () => {
             <UploadCloud className="h-6 w-6" />
           </div>
           <div className="text-left">
-            <h1 className="text-2xl font-black text-slate-900">Upload print document</h1>
-            <p className="text-xs text-slate-500">Guided order placement workflow</p>
+            <h1 className="text-2xl font-black text-slate-900 dark:text-white">Upload print document</h1>
+            <p className="text-xs text-slate-500 dark:text-dark-400 font-medium">Guided order placement workflow</p>
           </div>
         </div>
         <button
           onClick={() => navigate('/dashboard')}
-          className="text-xs font-bold text-slate-500 hover:text-slate-700 flex items-center gap-1 bg-white border border-slate-200 px-3.5 py-1.5 rounded-xl transition-all"
+          className="text-xs font-bold text-slate-500 dark:text-dark-400 hover:text-slate-700 dark:hover:text-white flex items-center gap-1 bg-white dark:bg-dark-900 border border-slate-200 dark:border-dark-800 px-3.5 py-1.5 rounded-xl transition-all"
         >
           Cancel
         </button>
       </div>
 
-      <div className="glass rounded-3xl p-6 shadow-xl space-y-6 bg-white border border-slate-150">
-        <div className="flex items-center justify-between border-b border-slate-100 pb-3">
-          <h2 className="text-sm font-black text-slate-900 flex items-center gap-2">
-            <UploadCloud className="h-4.5 w-4.5 text-blue-600" />
+      <div className="glass rounded-3xl p-6 shadow-xl space-y-6 bg-white dark:bg-dark-950 border border-slate-150 dark:border-dark-800">
+        <div className="flex items-center justify-between border-b border-slate-100 dark:border-dark-800 pb-3">
+          <h2 className="text-sm font-black text-slate-900 dark:text-white flex items-center gap-2">
+            <UploadCloud className="h-4.5 w-4.5 text-blue-600 dark:text-blue-400" />
             Print Placement Setup
           </h2>
           {/* Step indicators */}
@@ -535,7 +530,7 @@ const Dashboard = () => {
         {wizardStep === 'upload' && (
           <div className="space-y-4">
             {uploadError && (
-              <div className="flex items-start gap-2 rounded-xl bg-rose-50 border border-rose-100 p-4 text-xs text-rose-600 text-left">
+              <div className="flex items-start gap-2 rounded-xl bg-rose-50 dark:bg-rose-950/20 border border-rose-100 dark:border-rose-900/30 p-4 text-xs text-rose-600 dark:text-rose-455 text-left">
                 <ShieldAlert className="h-4.5 w-4.5 shrink-0 text-rose-500" />
                 <span>{uploadError}</span>
               </div>
@@ -550,7 +545,7 @@ const Dashboard = () => {
               className={`border-2 border-dashed rounded-2xl p-10 flex flex-col items-center justify-center cursor-pointer transition-all ${
                 dragActive 
                   ? 'border-blue-600 bg-blue-50/20 shadow-inner' 
-                  : 'border-slate-200 hover:border-slate-350 hover:bg-slate-50/30'
+                  : 'border-slate-200 dark:border-dark-800 hover:border-slate-350 dark:hover:border-dark-700 hover:bg-slate-50/30 dark:hover:bg-dark-900/20'
               }`}
             >
               <input
@@ -595,77 +590,75 @@ const Dashboard = () => {
               <div className="flex items-start gap-2 rounded-xl bg-rose-50 border border-rose-100 p-4 text-xs text-rose-600">
                 <ShieldAlert className="h-4.5 w-4.5 shrink-0 text-rose-500" />
                 <span>{orderError}</span>
-              </div>
-            )}
+              </div>            )}
 
-            <div className="p-4 bg-slate-50 border border-slate-100 rounded-xl flex items-center gap-3">
-              <FileText className="h-5 w-5 text-blue-600" />
-              <div className="leading-none">
-                <h4 className="text-xs font-extrabold text-slate-900">{document.originalName}</h4>
-                <span className="text-[9px] text-slate-450 block mt-1 uppercase font-black">{document.pageCount} Pages • {document.extension?.slice(1)}</span>
+            <div className="p-4 bg-slate-50 dark:bg-dark-900/60 border border-slate-100 dark:border-dark-800 rounded-xl flex items-center gap-3">
+              <FileText className="h-5 w-5 text-blue-600 dark:text-blue-400" />
+              <div className="leading-none text-left">
+                <h4 className="text-xs font-extrabold text-slate-900 dark:text-white">{document.originalName}</h4>
+                <span className="text-[9px] text-slate-450 dark:text-dark-400 block mt-1 uppercase font-black">{document.pageCount} Pages • {document.extension?.slice(1)}</span>
               </div>
             </div>
 
             {/* Select B&W or Color */}
             <div className="space-y-2">
-              <label className="block text-xs font-black text-slate-600 uppercase tracking-wider">Print profile</label>
+              <label className="block text-xs font-black text-slate-600 dark:text-dark-400 uppercase tracking-wider text-left">Print profile</label>
               <div className="grid grid-cols-2 gap-4">
                 <button
                   type="button"
                   onClick={() => setPrintType('bw')}
                   className={`p-4 rounded-xl border flex flex-col items-center justify-center transition-all ${
                     printType === 'bw'
-                      ? 'border-blue-500 bg-blue-50/40 font-bold'
-                      : 'border-slate-200 hover:bg-slate-50'
+                      ? 'border-blue-500 bg-blue-50/40 dark:bg-blue-950/20 font-bold'
+                      : 'border-slate-200 dark:border-dark-800 hover:bg-slate-50 dark:hover:bg-dark-900'
                   }`}
                 >
                   <span className="text-xl mb-1">⚫</span>
-                  <span className="text-xs font-bold text-slate-800">Black & White</span>
-                  <span className="text-[10px] text-slate-450 mt-0.5">{PRICES.bw} BDT / page</span>
+                  <span className="text-xs font-bold text-slate-800 dark:text-dark-200">Black & White</span>
+                  <span className="text-[10px] text-slate-450 dark:text-dark-400 mt-0.5">{PRICES.bw} BDT / page</span>
                 </button>
                 <button
                   type="button"
                   onClick={() => setPrintType('color')}
                   className={`p-4 rounded-xl border flex flex-col items-center justify-center transition-all ${
                     printType === 'color'
-                      ? 'border-blue-500 bg-blue-50/40 font-bold'
-                      : 'border-slate-200 hover:bg-slate-50'
+                      ? 'border-blue-500 bg-blue-50/40 dark:bg-blue-950/20 font-bold'
+                      : 'border-slate-200 dark:border-dark-800 hover:bg-slate-50 dark:hover:bg-dark-900'
                   }`}
                 >
                   <span className="text-xl mb-1">🌈</span>
-                  <span className="text-xs font-bold text-slate-800">Color Print</span>
-                  <span className="text-[10px] text-slate-450 mt-0.5">{PRICES.color} BDT / page</span>
+                  <span className="text-xs font-bold text-slate-800 dark:text-dark-200">Color Print</span>
+                  <span className="text-[10px] text-slate-450 dark:text-dark-400 mt-0.5">{PRICES.color} BDT / page</span>
                 </button>
               </div>
             </div>
 
             {/* Select copies */}
-            <div className="space-y-2">
-              <label htmlFor="copies" className="block text-xs font-black text-slate-600 uppercase tracking-wider">Number of Copies</label>
+            <div className="space-y-2 text-left">
+              <label htmlFor="copies" className="block text-xs font-black text-slate-600 dark:text-dark-400 uppercase tracking-wider">Number of Copies</label>
               <input
                 id="copies"
                 type="number"
                 min="1"
                 value={copies}
                 onChange={(e) => setCopies(Math.max(1, parseInt(e.target.value, 10) || 1))}
-                className="w-full px-4 py-2.5 border border-slate-200 rounded-xl outline-none focus:border-blue-500 text-xs font-bold"
+                className="w-full px-4 py-2.5 border border-slate-200 dark:border-dark-800 rounded-xl bg-white dark:bg-dark-900 text-slate-900 dark:text-white outline-none focus:border-blue-500 text-xs font-bold"
               />
             </div>
 
-            {/* Estimated cost box */}
-            <div className="p-4 bg-emerald-50/40 border border-emerald-100 rounded-2xl flex justify-between items-center">
+            <div className="p-4 bg-emerald-50/40 dark:bg-emerald-950/20 border border-emerald-100 dark:border-emerald-900/30 rounded-2xl flex justify-between items-center text-left">
               <div className="leading-none">
-                <span className="text-[10px] font-black text-slate-500 uppercase tracking-widest block">Total Price Estimation</span>
-                <span className="text-[9px] text-slate-400 block mt-1 font-semibold">({document.pageCount} pages × {copies} copies)</span>
+                <span className="text-[10px] font-black text-slate-500 dark:text-dark-400 uppercase tracking-widest block">Total Price Estimation</span>
+                <span className="text-[9px] text-slate-400 dark:text-dark-500 block mt-1 font-semibold">({document.pageCount} pages × {copies} copies)</span>
               </div>
-              <span className="text-xl font-black text-emerald-600">{estimatedCost} BDT</span>
+              <span className="text-xl font-black text-emerald-600 dark:text-emerald-400">{estimatedCost} BDT</span>
             </div>
 
             <div className="flex gap-4 pt-2">
               <button
                 type="button"
                 onClick={() => setWizardStep('upload')}
-                className="flex-1 py-3 text-xs font-bold border border-slate-200 rounded-xl hover:bg-slate-50 transition-colors"
+                className="flex-1 py-3 text-xs font-bold border border-slate-200 dark:border-dark-800 rounded-xl hover:bg-slate-50 dark:hover:bg-dark-900 text-slate-700 dark:text-dark-300 transition-colors"
               >
                 Back to Upload
               </button>
@@ -684,13 +677,13 @@ const Dashboard = () => {
         {/* STEP 3: SUCCESS CONFIRMATION */}
         {wizardStep === 'confirm' && (
           <div className="py-8 text-center space-y-6 max-w-sm mx-auto">
-            <div className="h-16 w-16 rounded-full bg-emerald-50 border-2 border-emerald-500/20 flex items-center justify-center text-emerald-500 mx-auto shadow-inner">
+            <div className="h-16 w-16 rounded-full bg-emerald-50 dark:bg-emerald-950/30 border-2 border-emerald-500/20 dark:border-emerald-500/10 flex items-center justify-center text-emerald-500 mx-auto shadow-inner">
               <Check className="h-8 w-8 text-emerald-500" />
             </div>
 
             <div className="space-y-2">
-              <h3 className="text-xl font-black text-slate-900 leading-tight">Order Placed Successfully!</h3>
-              <p className="text-xs text-slate-400 font-medium leading-relaxed">
+              <h3 className="text-xl font-black text-slate-900 dark:text-white leading-tight">Order Placed Successfully!</h3>
+              <p className="text-xs text-slate-400 dark:text-dark-400 font-medium leading-relaxed">
                 Your document has been sent to the university printing queue. You will receive real-time notifications on status changes.
               </p>
             </div>
