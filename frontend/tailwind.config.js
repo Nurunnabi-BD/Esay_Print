@@ -61,7 +61,7 @@ export default {
           50: '#090d16',
           100: 'var(--color-text-primary)',
           200: 'var(--color-sidebar-hover)',
-          300: '#334155',
+          300: '#d1d5db',
           400: 'var(--color-text-secondary)',
           500: 'var(--color-text-secondary)',
           600: 'var(--color-text-muted)',

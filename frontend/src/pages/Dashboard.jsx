@@ -362,7 +362,7 @@ const Dashboard = () => {
             <div className="overflow-x-auto">
               <table className="w-full text-left border-collapse min-w-[600px]">
                 <thead>
-                  <tr className="bg-slate-50 dark:bg-dark-900/60 border-y border-slate-200 dark:border-dark-800 text-[10px] font-bold text-slate-600 dark:text-dark-400 uppercase tracking-widest">
+                  <tr className="bg-slate-50 dark:bg-dark-900 border-y border-slate-200 dark:border-dark-800 text-[10px] font-bold text-slate-600 dark:text-dark-400 uppercase tracking-widest">
                     <th className="py-3 px-4">Order ID</th>
                     <th className="py-3 px-4">File Name</th>
                     <th className="py-3 px-4 text-center">Pages</th>
