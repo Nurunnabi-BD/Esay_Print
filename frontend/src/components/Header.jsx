@@ -223,9 +223,9 @@ const Header = () => {
                       className="fixed inset-0 z-40"
                       onClick={() => setShowNotifications(false)}
                     ></div>
-                    <div className="absolute right-0 mt-2 w-85 bg-white border border-slate-150 rounded-2xl shadow-xl z-50 overflow-hidden flex flex-col max-h-[420px]">
-                      <div className="px-4 py-3 bg-slate-50 border-b border-slate-100 flex justify-between items-center shrink-0">
-                        <span className="text-xs font-black text-slate-900">
+                    <div className="absolute right-0 mt-2 w-85 bg-white dark:bg-dark-950 border border-slate-150 dark:border-dark-800 rounded-2xl shadow-xl z-50 overflow-hidden flex flex-col max-h-[420px]">
+                      <div className="px-4 py-3 bg-slate-50 dark:bg-dark-900 border-b border-slate-100 dark:border-dark-800 flex justify-between items-center shrink-0">
+                        <span className="text-xs font-black text-slate-900 dark:text-white">
                           Notifications
                         </span>
                         {unreadCount > 0 && (
@@ -238,10 +238,10 @@ const Header = () => {
                         )}
                       </div>
 
-                      <div className="flex-1 overflow-y-auto divide-y divide-slate-100 max-h-[320px] scrollbar-none">
+                      <div className="flex-1 overflow-y-auto divide-y divide-slate-100 dark:divide-dark-850 max-h-[320px] scrollbar-none">
                         {notifications.length === 0 ? (
-                          <div className="py-12 text-center text-slate-400 text-xs flex flex-col items-center justify-center gap-2">
-                            <Bell className="h-8 w-8 text-slate-200" />
+                          <div className="py-12 text-center text-slate-400 dark:text-dark-500 text-xs flex flex-col items-center justify-center gap-2">
+                            <Bell className="h-8 w-8 text-slate-200 dark:text-dark-800" />
                             <span>No alerts or updates yet</span>
                           </div>
                         ) : (
@@ -249,12 +249,12 @@ const Header = () => {
                             let notifIcon = (
                               <Bell className="h-4 w-4 text-blue-500" />
                             );
-                            let notifBg = "bg-blue-50";
+                            let notifBg = "bg-blue-50 dark:bg-blue-950/40";
                             if (notif.type === "success") {
                               notifIcon = (
                                 <CheckCircle2 className="h-4 w-4 text-emerald-500" />
                               );
-                              notifBg = "bg-emerald-50";
+                              notifBg = "bg-emerald-50 dark:bg-emerald-950/40";
                             } else if (
                               notif.type === "error" ||
                               notif.type === "warning"
@@ -262,16 +262,16 @@ const Header = () => {
                               notifIcon = (
                                 <ShieldAlert className="h-4 w-4 text-rose-500" />
                               );
-                              notifBg = "bg-rose-50";
+                              notifBg = "bg-rose-50 dark:bg-rose-950/40";
                             }
 
                             return (
                               <div
                                 key={notif._id}
                                 onClick={() => handleNotificationClick(notif)}
-                                className={`p-4 flex gap-3 text-left cursor-pointer transition-colors hover:bg-slate-50/50 ${
+                                className={`p-4 flex gap-3 text-left cursor-pointer transition-colors hover:bg-slate-50/50 dark:hover:bg-dark-900/50 ${
                                   !notif.isRead
-                                    ? "bg-blue-50/10 border-l-2 border-blue-600"
+                                    ? "bg-blue-50/10 dark:bg-blue-950/10 border-l-2 border-blue-600"
                                     : ""
                                 }`}
                               >
@@ -283,7 +283,7 @@ const Header = () => {
                                 <div className="space-y-0.5 min-w-0 flex-1">
                                   <div className="flex justify-between items-start gap-1.5">
                                     <h4
-                                      className={`text-11px truncate ${!notif.isRead ? "font-black text-slate-950" : "font-bold text-slate-700"}`}
+                                      className={`text-11px truncate ${!notif.isRead ? "font-black text-slate-950 dark:text-white" : "font-bold text-slate-700 dark:text-dark-300"}`}
                                     >
                                       {notif.title}
                                     </h4>
@@ -291,13 +291,11 @@ const Header = () => {
                                       <span className="h-1.5 w-1.5 bg-blue-600 rounded-full shrink-0 mt-1"></span>
                                     )}
                                   </div>
-                                  <p className="text-10px text-slate-500 leading-normal line-clamp-2">
+                                  <p className="text-10px text-slate-500 dark:text-dark-400 leading-normal line-clamp-2">
                                     {notif.message}
                                   </p>
-                                  <span className="text-[9px] text-slate-400 block pt-0.5">
-                                    {new Date(
-                                      notif.createdAt,
-                                    ).toLocaleTimeString("en-US", {
+                                  <span className="text-[9px] text-slate-400 dark:text-dark-500 block pt-0.5">
+                                    {new Date(notif.createdAt).toLocaleTimeString("en-US", {
                                       hour: "2-digit",
                                       minute: "2-digit",
                                       hour12: true,
@@ -333,21 +331,21 @@ const Header = () => {
                       onClick={() => setShowUserMenu(false)}
                     />
 
-                    <div className="absolute right-0 mt-3 w-[460px] max-w-[calc(100vw-2rem)] bg-white border border-[#E2E8F0] rounded-[24px] shadow-[0_10px_30px_rgba(15,23,42,0.06)] z-[100] overflow-hidden dropdown-animation">
+                    <div className="absolute right-0 mt-3 w-[460px] max-w-[calc(100vw-2rem)] bg-white dark:bg-dark-950 border border-[#E2E8F0] dark:border-dark-800 rounded-[24px] shadow-[0_10px_30px_rgba(15,23,42,0.06)] dark:shadow-[0_10px_30px_rgba(0,0,0,0.4)] z-[100] overflow-hidden dropdown-animation">
                       {/* 1. Header Area */}
-                      <div className="p-6 border-b border-[#E2E8F0] flex items-center gap-5 text-left">
+                      <div className="p-6 border-b border-[#E2E8F0] dark:border-dark-800 flex items-center gap-5 text-left">
                         <div className="h-[72px] w-[72px] rounded-full bg-[#93B4F4] flex items-center justify-center text-white font-extrabold text-3xl shadow-sm shrink-0">
                           {user?.name ? user.name[0].toUpperCase() : 'N'}
                         </div>
                         <div className="space-y-1">
-                          <h4 className="text-lg font-bold text-[#0F172A] leading-none">
+                          <h4 className="text-lg font-bold text-[#0F172A] dark:text-white leading-none">
                             {user?.name || "Nurunnabi"}
                           </h4>
-                          <p className="text-sm text-[#64748B] font-medium leading-none mt-1.5">
+                          <p className="text-sm text-[#64748B] dark:text-dark-400 font-medium leading-none mt-1.5">
                             {user?.email || "nurunnabi@gmail.com"}
                           </p>
                           <div className="pt-1.5">
-                            <span className="inline-block px-3 py-1 rounded-full text-[10px] font-bold tracking-wider uppercase bg-[#EFF6FF] text-[#2563EB]">
+                            <span className="inline-block px-3 py-1 rounded-full text-[10px] font-bold tracking-wider uppercase bg-[#EFF6FF] dark:bg-blue-950/40 text-[#2563EB] dark:text-blue-400">
                               {user?.role === "admin" ? "Admin" : "User"}
                             </span>
                           </div>
@@ -362,14 +360,14 @@ const Header = () => {
                           <Link
                             to="/profile?tab=profile"
                             onClick={() => setShowUserMenu(false)}
-                            className="flex items-center gap-4 p-3 rounded-2xl hover:bg-[#F8FAFC] transition-colors group"
+                            className="flex items-center gap-4 p-3 rounded-2xl hover:bg-[#F8FAFC] dark:hover:bg-dark-900 transition-colors group"
                           >
-                            <div className="h-10 w-10 rounded-xl bg-[#F8FAFC] flex items-center justify-center text-[#64748B] group-hover:text-[#2563EB] group-hover:bg-[#EFF6FF] transition-all shrink-0">
+                            <div className="h-10 w-10 rounded-xl bg-[#F8FAFC] dark:bg-dark-900 flex items-center justify-center text-[#64748B] dark:text-dark-400 group-hover:text-[#2563EB] dark:group-hover:text-blue-400 group-hover:bg-[#EFF6FF] dark:group-hover:bg-blue-950/40 transition-all shrink-0">
                               <User className="h-5 w-5" />
                             </div>
                             <div className="leading-tight text-left">
-                              <h5 className="text-sm font-bold text-[#0F172A] group-hover:text-[#2563EB] transition-colors">My Profile</h5>
-                              <p className="text-xs text-[#64748B] font-medium mt-0.5">View and edit your profile</p>
+                              <h5 className="text-sm font-bold text-[#0F172A] dark:text-white group-hover:text-[#2563EB] dark:group-hover:text-blue-400 transition-colors">My Profile</h5>
+                              <p className="text-xs text-[#64748B] dark:text-dark-400 font-medium mt-0.5">View and edit your profile</p>
                             </div>
                           </Link>
 
@@ -377,14 +375,14 @@ const Header = () => {
                           <Link
                             to="/profile?tab=address"
                             onClick={() => setShowUserMenu(false)}
-                            className="flex items-center gap-4 p-3 rounded-2xl hover:bg-[#F8FAFC] transition-colors group"
+                            className="flex items-center gap-4 p-3 rounded-2xl hover:bg-[#F8FAFC] dark:hover:bg-dark-900 transition-colors group"
                           >
-                            <div className="h-10 w-10 rounded-xl bg-[#F8FAFC] flex items-center justify-center text-[#64748B] group-hover:text-[#2563EB] group-hover:bg-[#EFF6FF] transition-all shrink-0">
+                            <div className="h-10 w-10 rounded-xl bg-[#F8FAFC] dark:bg-dark-900 flex items-center justify-center text-[#64748B] dark:text-dark-400 group-hover:text-[#2563EB] dark:group-hover:text-blue-400 group-hover:bg-[#EFF6FF] dark:group-hover:bg-blue-950/40 transition-all shrink-0">
                               <Contact className="h-5 w-5" />
                             </div>
                             <div className="leading-tight text-left">
-                              <h5 className="text-sm font-bold text-[#0F172A] group-hover:text-[#2563EB] transition-colors">Address Book</h5>
-                              <p className="text-xs text-[#64748B] font-medium mt-0.5">Manage your addresses</p>
+                              <h5 className="text-sm font-bold text-[#0F172A] dark:text-white group-hover:text-[#2563EB] dark:group-hover:text-blue-400 transition-colors">Address Book</h5>
+                              <p className="text-xs text-[#64748B] dark:text-dark-400 font-medium mt-0.5">Manage your addresses</p>
                             </div>
                           </Link>
 
@@ -392,14 +390,14 @@ const Header = () => {
                           <Link
                             to="/profile?tab=payment"
                             onClick={() => setShowUserMenu(false)}
-                            className="flex items-center gap-4 p-3 rounded-2xl hover:bg-[#F8FAFC] transition-colors group"
+                            className="flex items-center gap-4 p-3 rounded-2xl hover:bg-[#F8FAFC] dark:hover:bg-dark-900 transition-colors group"
                           >
-                            <div className="h-10 w-10 rounded-xl bg-[#F8FAFC] flex items-center justify-center text-[#64748B] group-hover:text-[#2563EB] group-hover:bg-[#EFF6FF] transition-all shrink-0">
+                            <div className="h-10 w-10 rounded-xl bg-[#F8FAFC] dark:bg-dark-900 flex items-center justify-center text-[#64748B] dark:text-dark-400 group-hover:text-[#2563EB] dark:group-hover:text-blue-400 group-hover:bg-[#EFF6FF] dark:group-hover:bg-blue-950/40 transition-all shrink-0">
                               <CreditCard className="h-5 w-5" />
                             </div>
                             <div className="leading-tight text-left">
-                              <h5 className="text-sm font-bold text-[#0F172A] group-hover:text-[#2563EB] transition-colors">Payment Methods</h5>
-                              <p className="text-xs text-[#64748B] font-medium mt-0.5">Manage your payment options</p>
+                              <h5 className="text-sm font-bold text-[#0F172A] dark:text-white group-hover:text-[#2563EB] dark:group-hover:text-blue-400 transition-colors">Payment Methods</h5>
+                              <p className="text-xs text-[#64748B] dark:text-dark-400 font-medium mt-0.5">Manage your payment options</p>
                             </div>
                           </Link>
 
@@ -407,14 +405,14 @@ const Header = () => {
                           <Link
                             to="/profile?tab=settings"
                             onClick={() => setShowUserMenu(false)}
-                            className="flex items-center gap-4 p-3 rounded-2xl hover:bg-[#F8FAFC] transition-colors group"
+                            className="flex items-center gap-4 p-3 rounded-2xl hover:bg-[#F8FAFC] dark:hover:bg-dark-900 transition-colors group"
                           >
-                            <div className="h-10 w-10 rounded-xl bg-[#F8FAFC] flex items-center justify-center text-[#64748B] group-hover:text-[#2563EB] group-hover:bg-[#EFF6FF] transition-all shrink-0">
+                            <div className="h-10 w-10 rounded-xl bg-[#F8FAFC] dark:bg-dark-900 flex items-center justify-center text-[#64748B] dark:text-dark-400 group-hover:text-[#2563EB] dark:group-hover:text-blue-400 group-hover:bg-[#EFF6FF] dark:group-hover:bg-blue-950/40 transition-all shrink-0">
                               <Bell className="h-5 w-5" />
                             </div>
                             <div className="leading-tight text-left">
-                              <h5 className="text-sm font-bold text-[#0F172A] group-hover:text-[#2563EB] transition-colors">Notification Settings</h5>
-                              <p className="text-xs text-[#64748B] font-medium mt-0.5">Manage your notifications</p>
+                              <h5 className="text-sm font-bold text-[#0F172A] dark:text-white group-hover:text-[#2563EB] dark:group-hover:text-blue-400 transition-colors">Notification Settings</h5>
+                              <p className="text-xs text-[#64748B] dark:text-dark-400 font-medium mt-0.5">Manage your notifications</p>
                             </div>
                           </Link>
 
@@ -422,61 +420,59 @@ const Header = () => {
                           <Link
                             to="/profile?tab=profile"
                             onClick={() => setShowUserMenu(false)}
-                            className="flex items-center gap-4 p-3 rounded-2xl hover:bg-[#F8FAFC] transition-colors group"
+                            className="flex items-center gap-4 p-3 rounded-2xl hover:bg-[#F8FAFC] dark:hover:bg-dark-900 transition-colors group"
                           >
-                            <div className="h-10 w-10 rounded-xl bg-[#F8FAFC] flex items-center justify-center text-[#64748B] group-hover:text-[#2563EB] group-hover:bg-[#EFF6FF] transition-all shrink-0">
+                            <div className="h-10 w-10 rounded-xl bg-[#F8FAFC] dark:bg-dark-900 flex items-center justify-center text-[#64748B] dark:text-dark-400 group-hover:text-[#2563EB] dark:group-hover:text-blue-400 group-hover:bg-[#EFF6FF] dark:group-hover:bg-blue-950/40 transition-all shrink-0">
                               <Lock className="h-5 w-5" />
                             </div>
                             <div className="leading-tight text-left">
-                              <h5 className="text-sm font-bold text-[#0F172A] group-hover:text-[#2563EB] transition-colors">Change Password</h5>
-                              <p className="text-xs text-[#64748B] font-medium mt-0.5">Update your account password</p>
+                              <h5 className="text-sm font-bold text-[#0F172A] dark:text-white group-hover:text-[#2563EB] dark:group-hover:text-blue-400 transition-colors">Change Password</h5>
+                              <p className="text-xs text-[#64748B] dark:text-dark-400 font-medium mt-0.5">Update your account password</p>
                             </div>
                           </Link>
                         </div>
 
-                        <div className="space-y-0.5 py-2 border-t border-[#E2E8F0]">
+                        <div className="space-y-0.5 py-2 border-t border-[#E2E8F0] dark:border-dark-800">
                           {/* Option: Help & Support */}
                           <Link
                             to="/profile?tab=help"
                             onClick={() => setShowUserMenu(false)}
-                            className="flex items-center gap-4 p-3 rounded-2xl hover:bg-[#F8FAFC] transition-colors group"
+                            className="flex items-center gap-4 p-3 rounded-2xl hover:bg-[#F8FAFC] dark:hover:bg-dark-900 transition-colors group"
                           >
-                            <div className="h-10 w-10 rounded-xl bg-[#F8FAFC] flex items-center justify-center text-[#64748B] group-hover:text-[#2563EB] group-hover:bg-[#EFF6FF] transition-all shrink-0">
+                            <div className="h-10 w-10 rounded-xl bg-[#F8FAFC] dark:bg-dark-900 flex items-center justify-center text-[#64748B] dark:text-dark-400 group-hover:text-[#2563EB] dark:group-hover:text-blue-400 group-hover:bg-[#EFF6FF] dark:group-hover:bg-blue-950/40 transition-all shrink-0">
                               <HelpCircle className="h-5 w-5" />
                             </div>
                             <div className="leading-tight text-left">
-                              <h5 className="text-sm font-bold text-[#0F172A] group-hover:text-[#2563EB] transition-colors">Help & Support</h5>
-                              <p className="text-xs text-[#64748B] font-medium mt-0.5">Get help and support</p>
+                              <h5 className="text-sm font-bold text-[#0F172A] dark:text-white group-hover:text-[#2563EB] dark:group-hover:text-blue-400 transition-colors">Help & Support</h5>
+                              <p className="text-xs text-[#64748B] dark:text-dark-400 font-medium mt-0.5">Get help and support</p>
                             </div>
                           </Link>
                         </div>
 
-                        <div className="pt-2 border-t border-[#E2E8F0]">
+                        <div className="pt-2 border-t border-[#E2E8F0] dark:border-dark-800">
                           {/* Option: Logout */}
                           <div
                             onClick={() => {
                               setShowUserMenu(false);
                               handleLogout();
                             }}
-                            className="w-full flex items-center gap-4 p-3 rounded-2xl hover:bg-[#FEF2F2] transition-colors group text-left cursor-pointer"
+                            className="w-full flex items-center gap-4 p-3 rounded-2xl hover:bg-[#FEF2F2] dark:hover:bg-red-950/30 transition-colors group text-left cursor-pointer"
                           >
-                            <div className="h-10 w-10 rounded-xl bg-[#FEF2F2] flex items-center justify-center text-[#EF4444] group-hover:text-[#DC2626] transition-all shrink-0">
+                            <div className="h-10 w-10 rounded-xl bg-[#FEF2F2] dark:bg-red-950/50 flex items-center justify-center text-[#EF4444] group-hover:text-[#DC2626] transition-all shrink-0">
                               <LogOut className="h-5 w-5" />
                             </div>
                             <div className="flex-1 text-left leading-tight">
                               <h5 className="text-sm font-bold text-[#EF4444] group-hover:text-[#DC2626] transition-colors">Logout</h5>
-                              <p className="text-xs text-[#94A3B8] font-medium mt-0.5">Sign out from your account</p>
-                            </div>
+                              <p className="text-xs text-[#94A3B8] dark:text-dark-500 font-medium mt-0.5">Sign out from your account</p>
                           </div>
                         </div>
-
                       </div>
-
                     </div>
-                  </>
-                )}
-              </div>
-            </>
+                  </div>
+                </>
+              )}
+            </div>
+          </>
           ) : (
             <>
               <Link
