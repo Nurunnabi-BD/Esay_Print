@@ -122,14 +122,13 @@ const Services = () => {
           </div>
         </div>
       </main>
-
       {/* Our Services Section */}
-      <section className="bg-slate-50/50 py-16 border-t border-slate-100">
+      <section className="bg-slate-50/50 dark:bg-dark-950/20 py-16 border-t border-slate-100 dark:border-dark-850">
         <div className="max-w-7xl mx-auto px-6 text-center space-y-12">
           {/* Header */}
           <div className="space-y-3">
-            <h2 className="text-3xl font-black text-slate-900">Our Services</h2>
-            <p className="text-sm text-slate-500 font-medium max-w-md mx-auto">
+            <h2 className="text-3xl font-black text-slate-900 dark:text-white">Our Services</h2>
+            <p className="text-sm text-slate-500 dark:text-dark-400 font-medium max-w-md mx-auto">
               High-quality printing services at your fingertips.
             </p>
           </div>
