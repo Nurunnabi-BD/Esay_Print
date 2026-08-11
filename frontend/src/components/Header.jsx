@@ -16,7 +16,9 @@ import {
   HelpCircle,
   Contact,
   Sun,
-  Moon
+  Moon,
+  Menu,
+  X
 } from "lucide-react";
 import { FaReact } from "react-icons/fa";
 import { useAuth } from "../context/AuthContext";
@@ -28,10 +30,10 @@ const Header = () => {
   const { socket } = useSocket();
   const navigate = useNavigate();
   const location = useLocation();
-
   const [notifications, setNotifications] = useState([]);
   const [showNotifications, setShowNotifications] = useState(false);
   const [showUserMenu, setShowUserMenu] = useState(false);
+  const [showMobileMenu, setShowMobileMenu] = useState(false);
   const [activeHash, setActiveHash] = useState(location.hash);
   const [theme, setTheme] = useState(
     localStorage.getItem("theme") || "light"
@@ -471,13 +473,13 @@ const Header = () => {
                   </div>
                 </>
               )}
-            </div>
-          </>
+              </div>
+            </>
           ) : (
-            <>
+            <div className="hidden md:flex items-center gap-3">
               <Link
                 to="/login"
-                className="flex items-center gap-1.5 rounded-xl border border-slate-200 px-5 py-3 text-xs font-bold text-slate-700 hover:bg-slate-50 hover:text-blue-600 hover:border-blue-200 transition-all"
+                className="flex items-center gap-1.5 rounded-xl border border-slate-200 dark:border-dark-800 px-5 py-3 text-xs font-bold text-slate-700 dark:text-dark-300 hover:bg-slate-50 dark:hover:bg-dark-800 hover:text-blue-600 dark:hover:text-blue-400 hover:border-blue-200 dark:hover:border-blue-800 transition-all"
               >
                 <User className="h-4 w-4" />
                 Login
@@ -489,10 +491,98 @@ const Header = () => {
                 <LogIn className="h-4 w-4" />
                 Sign Up
               </Link>
-            </>
+            </div>
           )}
+
+          {/* Mobile Menu Toggle Button */}
+          <button
+            onClick={() => setShowMobileMenu(!showMobileMenu)}
+            className="md:hidden p-2.5 rounded-xl border border-slate-200 dark:border-dark-800 bg-white dark:bg-dark-900 text-slate-500 dark:text-dark-300 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-slate-50 dark:hover:bg-dark-800 transition-all cursor-pointer flex items-center justify-center shrink-0"
+            title="Toggle Menu"
+          >
+            {showMobileMenu ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+          </button>
         </div>
       </div>
+
+      {/* Responsive Mobile Navigation Drawer */}
+      {showMobileMenu && (
+        <div className="md:hidden border-t border-slate-100 dark:border-dark-800 bg-white dark:bg-dark-950 px-6 py-5 space-y-5 shadow-inner dropdown-animation">
+          <nav className="flex flex-col gap-4 text-sm font-bold text-left">
+            <Link
+              to="/"
+              onClick={() => setShowMobileMenu(false)}
+              className={`py-2.5 border-b border-slate-50 dark:border-dark-900 flex items-center justify-between ${
+                location.pathname === '/' && !activeHash
+                  ? 'text-blue-600 font-black'
+                  : 'text-slate-600 dark:text-dark-350 hover:text-blue-600 dark:hover:text-blue-400'
+              }`}
+            >
+              <span>Home</span>
+              <span className="text-slate-300 text-xs">→</span>
+            </Link>
+            {user && (
+              <Link
+                to={user.role === 'admin' ? '/admin/dashboard' : '/dashboard'}
+                onClick={() => setShowMobileMenu(false)}
+                className={`py-2.5 border-b border-slate-50 dark:border-dark-900 flex items-center justify-between ${
+                  location.pathname !== '/' && location.pathname !== '/services' && !['/login', '/signup', '/admin/login'].includes(location.pathname)
+                    ? 'text-blue-600 font-black'
+                    : 'text-slate-600 dark:text-dark-350 hover:text-blue-600 dark:hover:text-blue-400'
+                }`}
+              >
+                <span>Dashboard</span>
+                <span className="text-slate-300 text-xs">→</span>
+              </Link>
+            )}
+            <Link
+              to="/services"
+              onClick={() => setShowMobileMenu(false)}
+              className={`py-2.5 border-b border-slate-50 dark:border-dark-900 flex items-center justify-between ${
+                location.pathname === '/services'
+                  ? 'text-blue-600 font-black'
+                  : 'text-slate-600 dark:text-dark-350 hover:text-blue-600 dark:hover:text-blue-400'
+              }`}
+            >
+              <span>Services</span>
+              <span className="text-slate-300 text-xs">→</span>
+            </Link>
+            <a
+              href="/#how-it-works"
+              onClick={() => setShowMobileMenu(false)}
+              className={`py-2.5 border-b border-slate-50 dark:border-dark-900 flex items-center justify-between ${
+                activeHash === '#how-it-works'
+                  ? 'text-blue-600 font-black'
+                  : 'text-slate-600 dark:text-dark-350 hover:text-blue-600 dark:hover:text-blue-400'
+              }`}
+            >
+              <span>How It Works</span>
+              <span className="text-slate-300 text-xs">→</span>
+            </a>
+          </nav>
+
+          {!user && (
+            <div className="flex flex-col gap-3 pt-3 border-t border-slate-100 dark:border-dark-800">
+              <Link
+                to="/login"
+                onClick={() => setShowMobileMenu(false)}
+                className="flex items-center justify-center gap-2 rounded-xl border border-slate-200 dark:border-dark-800 px-5 py-3.5 text-xs font-bold text-slate-700 dark:text-dark-300 hover:bg-slate-50 dark:hover:bg-dark-800 hover:text-blue-600 transition-all w-full"
+              >
+                <User className="h-4 w-4" />
+                Login
+              </Link>
+              <Link
+                to="/signup"
+                onClick={() => setShowMobileMenu(false)}
+                className="flex items-center justify-center gap-2 rounded-xl bg-blue-600 hover:bg-blue-700 text-xs font-bold text-white px-5 py-3.5 transition-colors shadow-md shadow-blue-600/20 w-full"
+              >
+                <LogIn className="h-4 w-4" />
+                Sign Up
+              </Link>
+            </div>
+          )}
+        </div>
+      )}
     </header>
   );
 };
