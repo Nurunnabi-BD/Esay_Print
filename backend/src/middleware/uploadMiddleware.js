@@ -25,8 +25,11 @@ const ALLOWED_MIME_TYPES = {
   'application/vnd.openxmlformats-officedocument.presentationml.presentation': '.pptx',
   'text/plain': '.txt',
   'image/jpeg': ['.jpg', '.jpeg'],
-  'image/png': '.png',
-  'image/webp': '.webp'
+  'image/jpg': ['.jpg', '.jpeg'],
+  'image/pjpeg': ['.jpg', '.jpeg'],
+  'image/png': ['.png'],
+  'image/x-png': ['.png'],
+  'image/webp': ['.webp']
 };
 
 const fileFilter = (req, file, cb) => {
@@ -44,6 +47,10 @@ const fileFilter = (req, file, cb) => {
   // 2. Validate MIME type
   const expectedExt = ALLOWED_MIME_TYPES[mimeType];
   if (!expectedExt) {
+    // If mimeType isn't strict in dictionary but extension is valid, allow common image/document fallback
+    if (ALLOWED_EXTENSIONS.includes(ext)) {
+      return cb(null, true);
+    }
     return cb(
       new Error(`Unsupported file content type (MIME): ${mimeType}`), 
       false
@@ -62,8 +69,8 @@ const fileFilter = (req, file, cb) => {
   cb(null, true);
 };
 
-// Size limit in bytes (config in MB, defaults to 20MB)
-const maxFileSizeMB = parseInt(process.env.MAX_FILE_SIZE_MB, 10) || 20;
+// Size limit in bytes (config in MB, defaults to 100MB)
+const maxFileSizeMB = parseInt(process.env.MAX_FILE_SIZE_MB, 10) || 100;
 const limits = {
   fileSize: maxFileSizeMB * 1024 * 1024,
 };

@@ -43,8 +43,8 @@ const limiter = rateLimit({
 app.use('/api/', limiter);
 
 // Body Parser Middleware
-app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
+app.use(express.json({ limit: '100mb' }));
+app.use(express.urlencoded({ limit: '100mb', extended: true }));
 
 // Serve Local Uploads Statically
 const path = require('path');

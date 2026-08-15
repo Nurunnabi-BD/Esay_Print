@@ -152,6 +152,13 @@ const Dashboard = () => {
   };
 
   const uploadFile = async (file) => {
+    // 100MB size limit check
+    const MAX_SIZE_BYTES = 100 * 1024 * 1024;
+    if (file.size > MAX_SIZE_BYTES) {
+      setUploadError('File size exceeds the 100MB limit. Please upload a smaller file.');
+      return;
+    }
+
     setUploading(true);
     setUploadError('');
     setUploadProgress(0);
@@ -553,22 +560,22 @@ const Dashboard = () => {
                 type="file"
                 className="hidden"
                 onChange={handleFileChange}
-                accept=".pdf,.doc,.docx,.xls,.xlsx,.png,.jpg,.jpeg"
+                accept=".pdf,.doc,.docx,.xls,.xlsx,.ppt,.pptx,.txt,.png,.jpg,.jpeg,.webp"
               />
 
               <UploadCloud className="h-10 w-10 text-slate-400 mb-3 animate-pulse" />
               {uploading ? (
                 <div className="space-y-2 text-center">
-                  <p className="text-xs font-bold text-slate-700">Uploading your document...</p>
-                  <div className="w-48 h-1.5 bg-slate-100 rounded-full overflow-hidden mx-auto">
+                  <p className="text-xs font-bold text-slate-700 dark:text-white">Uploading your document...</p>
+                  <div className="w-48 h-1.5 bg-slate-100 dark:bg-dark-800 rounded-full overflow-hidden mx-auto">
                     <div className="h-full bg-blue-600 transition-all duration-300" style={{ width: `${uploadProgress}%` }}></div>
                   </div>
-                  <span className="text-[10px] text-slate-500 font-bold">{uploadProgress}% uploaded</span>
+                  <span className="text-[10px] text-slate-500 dark:text-dark-400 font-bold">{uploadProgress}% uploaded</span>
                 </div>
               ) : (
                 <div className="text-center space-y-1">
-                  <p className="text-xs font-bold text-slate-800">Drag and drop file here, or click to browse</p>
-                  <span className="text-[10px] text-slate-400 block pt-0.5">Supports PDF, DOCX, XLSX, images (Max 10MB)</span>
+                  <p className="text-xs font-bold text-slate-800 dark:text-white">Drag and drop file here, or click to browse</p>
+                  <span className="text-[10px] text-slate-400 dark:text-dark-400 block pt-0.5">Supports PDF, DOCX, XLSX, Images (PNG, JPG, JPEG, WEBP) — Max 100MB</span>
                 </div>
               )}
             </div>
