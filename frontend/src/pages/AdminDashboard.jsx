@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import axiosClient from '../api/axiosClient';
 import { 
   ShoppingBag, Clock, Printer, Users, TrendingUp, 
-  HelpCircle, Eye, MoreVertical, FileText, ChevronRight 
+  HelpCircle, Eye, MoreVertical, FileText, ChevronRight, UploadCloud 
 } from 'lucide-react';
 
 const AdminDashboard = () => {
@@ -249,6 +249,21 @@ const AdminDashboard = () => {
   return (
     <div className="space-y-6">
       
+      {/* Top Welcome & Quick Actions Bar */}
+      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 bg-white dark:bg-dark-950 p-6 rounded-3xl border border-slate-150 dark:border-dark-850 shadow-sm">
+        <div>
+          <h1 className="text-2xl font-extrabold text-slate-900 dark:text-white">Admin Control Panel</h1>
+          <p className="text-xs text-slate-500 dark:text-dark-400 mt-1">Manage printing queue, system users, and process document print jobs.</p>
+        </div>
+        <Link
+          to="/dashboard?action=upload"
+          className="flex items-center gap-2 px-5 py-3 rounded-xl bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold transition-all shadow-md hover:shadow-lg shrink-0"
+        >
+          <UploadCloud className="h-4.5 w-4.5" />
+          Upload & Print Document
+        </Link>
+      </div>
+
       {/* 1. Four-Column Stats Grid */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
         

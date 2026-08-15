@@ -4,7 +4,7 @@ import { useAuth } from '../context/AuthContext';
 import axiosClient from '../api/axiosClient';
 import { 
   LayoutDashboard, FileText, Clock, Settings, Users, 
-  CheckCircle2, XCircle, LogOut, Menu, X, UserCircle, HelpCircle 
+  CheckCircle2, XCircle, LogOut, Menu, X, UserCircle, HelpCircle, UploadCloud 
 } from 'lucide-react';
 import { FaReact } from 'react-icons/fa';
 import NotificationToast from '../components/NotificationToast';
@@ -45,6 +45,7 @@ const AdminLayout = ({ children }) => {
     {
       title: 'ORDERS',
       items: [
+        { name: 'Upload & Print File', path: '/dashboard?action=upload', icon: UploadCloud },
         { name: 'All Orders', path: '/admin/orders', icon: FileText },
         { name: 'Pending Orders', path: '/admin/orders?status=Order Received', icon: Clock, count: counts.new, color: 'bg-amber-500/10 text-amber-500' },
         { name: 'In Progress', path: '/admin/orders?status=Processing', icon: Settings, count: counts.processing, color: 'bg-blue-600/10 text-blue-500' },

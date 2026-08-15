@@ -4,7 +4,20 @@ const { uploadDocument, getDocument, deleteDocument } = require('../controllers/
 const { protect } = require('../middleware/authMiddleware');
 const upload = require('../middleware/uploadMiddleware');
 
-router.post('/upload', protect, upload.single('file'), uploadDocument);
+// Custom upload middleware to accept 'file', 'document', or any single upload field
+const handleSingleUpload = (req, res, next) => {
+  upload.any()(req, res, (err) => {
+    if (err) {
+      return res.status(400).json({ success: false, message: err.message });
+    }
+    if (req.files && req.files.length > 0) {
+      req.file = req.files[0];
+    }
+    next();
+  });
+};
+
+router.post('/upload', protect, handleSingleUpload, uploadDocument);
 router.route('/:id')
   .get(protect, getDocument)
   .delete(protect, deleteDocument);

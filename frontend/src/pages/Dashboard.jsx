@@ -157,7 +157,7 @@ const Dashboard = () => {
     setUploadProgress(0);
 
     const formData = new FormData();
-    formData.append('document', file);
+    formData.append('file', file);
 
     try {
       const res = await axiosClient.post('/documents/upload', formData, {
