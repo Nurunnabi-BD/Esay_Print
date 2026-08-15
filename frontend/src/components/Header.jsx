@@ -336,7 +336,7 @@ const Header = () => {
                       onClick={() => setShowUserMenu(false)}
                     />
 
-                    <div className="absolute right-0 mt-3 w-[460px] max-w-[calc(100vw-2rem)] bg-white dark:bg-dark-950 border border-[#E2E8F0] dark:border-dark-800 rounded-[24px] shadow-[0_10px_30px_rgba(15,23,42,0.06)] dark:shadow-[0_10px_30px_rgba(0,0,0,0.4)] z-[100] overflow-hidden dropdown-animation">
+                    <div className="absolute right-0 mt-3 w-[340px] sm:w-[400px] md:w-[440px] max-w-[calc(100vw-1.5rem)] bg-white dark:bg-dark-950 border border-[#E2E8F0] dark:border-dark-800 rounded-[24px] shadow-[0_10px_30px_rgba(15,23,42,0.06)] dark:shadow-[0_10px_30px_rgba(0,0,0,0.4)] z-[100] overflow-hidden dropdown-animation">
                       {/* 1. Header Area */}
                       <div className="p-6 border-b border-[#E2E8F0] dark:border-dark-800 flex items-center gap-5 text-left">
                         <div className="h-[72px] w-[72px] rounded-full bg-[#93B4F4] flex items-center justify-center text-white font-extrabold text-3xl shadow-sm shrink-0">
