@@ -14,7 +14,6 @@ const AdminLayout = ({ children }) => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [counts, setCounts] = useState({ new: 0, processing: 0, completed: 0, cancelled: 0 });
   const { user, logout } = useAuth();
-  
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -27,16 +26,20 @@ const AdminLayout = ({ children }) => {
     try {
       const res = await axiosClient.get('/admin/statistics');
       if (res.data.success) {
-        setCounts(res.data.counts);
+        setCounts({
+          new: res.data.counts.new || 0,
+          processing: res.data.counts.processing || 0,
+          completed: res.data.counts.completed || 0,
+          cancelled: (res.data.counts.cancelled || 0) + (res.data.counts.failed || 0)
+        });
       }
     } catch (error) {
-      console.error('Failed to load live status counts for sidebar', error);
+      console.error('Failed to load admin queue statistics', error);
     }
   };
 
   useEffect(() => {
     fetchLiveCounts();
-    // Poll counts every 30 seconds for live updates
     const interval = setInterval(fetchLiveCounts, 30000);
     return () => clearInterval(interval);
   }, []);
@@ -66,6 +69,7 @@ const AdminLayout = ({ children }) => {
       ]
     }
   ];
+
   return (
     <div className="min-h-screen bg-slate-50 dark:bg-dark-900 flex flex-col text-slate-900 dark:text-white font-sans transition-colors duration-300">
       {/* Shared Global Brand Header */}
@@ -87,19 +91,19 @@ const AdminLayout = ({ children }) => {
 
         {/* Left Sidebar */}
         <aside
-          className={`fixed inset-y-0 left-0 z-40 w-64 bg-[#0F172A] border-r border-slate-800 flex flex-col justify-between p-6 transform transition-transform duration-300 md:relative md:transform-none shrink-0 ${
+          className={`fixed inset-y-0 left-0 z-40 w-64 bg-white dark:bg-[#0F172A] border-r border-slate-200 dark:border-slate-800 flex flex-col justify-between p-6 transform transition-transform duration-300 md:relative md:transform-none shrink-0 shadow-sm ${
             sidebarOpen ? 'translate-x-0' : '-translate-x-full'
           }`}
         >
           <div className="space-y-6 overflow-y-auto max-h-[85vh] scrollbar-none pr-1">
             {/* Logo Branding */}
-            <Link to="/admin/dashboard" className="flex items-center gap-3 font-extrabold text-white text-lg border-b border-slate-800 pb-5">
-              <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-blue-600 text-white shadow-md shadow-blue-600/15">
+            <Link to="/admin/dashboard" className="flex items-center gap-3 font-extrabold text-slate-900 dark:text-white text-lg border-b border-slate-100 dark:border-slate-800 pb-5">
+              <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-blue-600 text-white shadow-md">
                 <FaReact className="h-5 w-5 animate-spin-slow text-white" />
               </div>
               <div className="flex flex-col leading-none">
-                <span className="text-sm font-black tracking-tight text-white">PrintFlow</span>
-                <span className="text-[9px] text-slate-300 font-medium tracking-wide mt-0.5">Online Printing System</span>
+                <span className="text-sm font-black tracking-tight text-slate-900 dark:text-white">PrintFlow</span>
+                <span className="text-[9px] text-slate-500 dark:text-slate-400 font-medium tracking-wide mt-0.5">Online Printing System</span>
               </div>
             </Link>
 
@@ -110,7 +114,7 @@ const AdminLayout = ({ children }) => {
               className={`flex items-center gap-3 px-4 py-3 rounded-xl text-xs font-bold transition-all ${
                 location.pathname === '/admin/dashboard'
                   ? 'bg-blue-600 text-white shadow-md shadow-blue-600/10'
-                  : 'text-slate-300 hover:bg-slate-800 hover:text-white'
+                  : 'text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 hover:text-slate-900 dark:hover:text-white'
               }`}
             >
               <LayoutDashboard className="h-4.5 w-4.5" />
@@ -120,7 +124,7 @@ const AdminLayout = ({ children }) => {
             {/* Render Sections */}
             {sections.map((sec) => (
               <div key={sec.title} className="space-y-1.5 pt-3">
-                <span className="block text-[9px] font-black text-slate-500 tracking-widest pl-4 uppercase">{sec.title}</span>
+                <span className="block text-[9px] font-black text-slate-400 dark:text-slate-500 tracking-widest pl-4 uppercase">{sec.title}</span>
                 <nav className="space-y-1">
                   {sec.items.map((item) => {
                     const Icon = item.icon;
@@ -133,7 +137,7 @@ const AdminLayout = ({ children }) => {
                         className={`flex items-center justify-between px-4 py-2.5 rounded-xl text-xs font-bold transition-all ${
                           isActive
                             ? 'bg-blue-600 text-white shadow-md shadow-blue-600/10'
-                            : 'text-slate-300 hover:bg-slate-800 hover:text-white'
+                            : 'text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 hover:text-slate-900 dark:hover:text-white'
                         }`}
                       >
                         <div className="flex items-center gap-3">
@@ -154,32 +158,27 @@ const AdminLayout = ({ children }) => {
           </div>
 
           {/* Sidebar Footer Support Help Desk */}
-          <div className="space-y-4 pt-4 border-t border-slate-800 mt-4">
-            <div className="p-3 bg-blue-950/20 border border-blue-900/30 rounded-2xl flex items-start gap-2.5 text-left">
-              <HelpCircle className="h-4.5 w-4.5 text-blue-500 shrink-0 mt-0.5" />
+          <div className="space-y-4 pt-4 border-t border-slate-100 dark:border-slate-800 mt-4">
+            <div className="p-3 bg-blue-50 dark:bg-blue-950/20 border border-blue-100 dark:border-blue-900/30 rounded-2xl flex items-start gap-2.5 text-left">
+              <HelpCircle className="h-4.5 w-4.5 text-blue-600 dark:text-blue-400 shrink-0 mt-0.5" />
               <div className="space-y-0.5">
-                <h5 className="text-[10px] font-extrabold text-white">Need Help?</h5>
-                <Link to="/admin/profile?tab=support" className="text-[9px] font-bold text-blue-400 hover:text-blue-300 transition-colors block">Contact Support</Link>
+                <h5 className="text-[10px] font-extrabold text-slate-900 dark:text-white">Need Help?</h5>
+                <Link to="/admin/profile?tab=support" className="text-[9px] font-bold text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 transition-colors block">Contact Support</Link>
               </div>
             </div>
 
             <button
               onClick={handleLogout}
-              className="flex w-full items-center gap-3 px-4 py-2.5 rounded-xl text-xs font-bold text-danger hover:bg-danger/10 hover:text-danger transition-colors"
+              className="flex w-full items-center gap-3 px-4 py-2.5 rounded-xl text-xs font-bold text-rose-600 dark:text-rose-400 hover:bg-rose-50 dark:hover:bg-rose-950/30 transition-colors"
             >
               <LogOut className="h-4.5 w-4.5 shrink-0" />
               <span>Logout</span>
             </button>
           </div>
         </aside>
+
         {/* Main Content Pane */}
         <main className="flex-1 p-6 md:p-8 bg-slate-50 dark:bg-dark-900 overflow-y-auto relative transition-colors duration-300">
-          {sidebarOpen && (
-            <div
-              onClick={() => setSidebarOpen(false)}
-              className="fixed inset-0 bg-black/40 z-30 md:hidden backdrop-blur-sm"
-            ></div>
-          )}
           {children}
         </main>
       </div>
