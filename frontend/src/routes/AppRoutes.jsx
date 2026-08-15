@@ -20,6 +20,7 @@ import MyOrders from '../pages/MyOrders';
 import OrderDetails from '../pages/OrderDetails';
 import Profile from '../pages/Profile';
 import Services from '../pages/Services';
+import HowItWorks from '../pages/HowItWorks';
 
 // Admin Pages
 import AdminLogin from '../pages/AdminLogin';
@@ -35,6 +36,7 @@ const AppRoutes = () => {
       {/* Public Pages */}
       <Route path="/" element={<Home />} />
       <Route path="/services" element={<Services />} />
+      <Route path="/how-it-works" element={<HowItWorks />} />
       <Route path="/login" element={<PublicRoute><Login /></PublicRoute>} />
       <Route path="/signup" element={<PublicRoute><Signup /></PublicRoute>} />
       <Route path="/admin/login" element={<PublicRoute><AdminLogin /></PublicRoute>} />

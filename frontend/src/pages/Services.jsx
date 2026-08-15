@@ -84,13 +84,13 @@ const Services = () => {
               <UploadCloud className="h-4.5 w-4.5 text-white" />
               Upload Your File
             </Link>
-            <a
-              href="/#how-it-works"
+            <Link
+              to="/how-it-works"
               className="flex items-center gap-2 rounded-xl border border-slate-200 dark:border-dark-800 px-6 py-3.5 text-xs font-bold text-slate-700 dark:text-dark-300 hover:bg-slate-50 dark:hover:bg-dark-800 hover:text-blue-600 hover:border-blue-200 transition-all"
             >
               <Play className="h-4.5 w-4.5 text-blue-600" />
               How It Works
-            </a>
+            </Link>
           </div>
         </div>
 

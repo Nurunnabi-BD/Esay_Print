@@ -178,16 +178,16 @@ const Header = () => {
           >
             Services
           </Link>
-          <a
-            href="/#how-it-works"
+          <Link
+            to="/how-it-works"
             className={`pb-1.5 transition-all border-b-2 ${
-              activeHash === '#how-it-works'
+              location.pathname === '/how-it-works'
                 ? 'text-blue-600 border-blue-600 font-black'
                 : 'text-slate-600 dark:text-dark-350 border-transparent hover:text-blue-600 dark:hover:text-blue-400'
             }`}
           >
             How It Works
-          </a>
+          </Link>
 
         </nav>
 
@@ -615,18 +615,18 @@ const Header = () => {
               <span>Services</span>
               <span className="text-slate-300 text-xs">→</span>
             </Link>
-            <a
-              href="/#how-it-works"
+            <Link
+              to="/how-it-works"
               onClick={() => setShowMobileMenu(false)}
               className={`py-2.5 border-b border-slate-50 dark:border-dark-900 flex items-center justify-between ${
-                activeHash === '#how-it-works'
+                location.pathname === '/how-it-works'
                   ? 'text-blue-600 font-black'
                   : 'text-slate-600 dark:text-dark-350 hover:text-blue-600 dark:hover:text-blue-400'
               }`}
             >
               <span>How It Works</span>
               <span className="text-slate-300 text-xs">→</span>
-            </a>
+            </Link>
           </nav>
 
           {!user && (
