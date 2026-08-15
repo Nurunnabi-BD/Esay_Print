@@ -158,9 +158,15 @@ const Profile = () => {
     setSupportMessage('');
   };
 
+  React.useEffect(() => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }, [activeTab]);
+
   // --- Header Helpers ---
   const getHeaderDetails = () => {
     switch (activeTab) {
+      case 'password':
+        return { title: 'Change Password', desc: 'Update your account security password.', icon: <Lock className="h-6 w-6" /> };
       case 'address':
         return { title: 'Address Book', desc: 'Manage your saved delivery and pickup locations.', icon: <MapPin className="h-6 w-6" /> };
       case 'payment':
@@ -173,7 +179,11 @@ const Profile = () => {
         return { title: 'Contact Support', desc: 'Send a message directly to our campus helpline.', icon: <Headphones className="h-6 w-6" /> };
       case 'profile':
       default:
-        return { title: 'Student Profile', desc: 'View and update your student account settings.', icon: <User className="h-6 w-6" /> };
+        return { 
+          title: user?.role === 'admin' ? 'Admin Profile' : 'Student Profile', 
+          desc: user?.role === 'admin' ? 'View and update your admin account credentials.' : 'View and update your student account settings.', 
+          icon: <User className="h-6 w-6" /> 
+        };
     }
   };
 
@@ -182,6 +192,75 @@ const Profile = () => {
   // --- Tab Renderers ---
   const renderTabContent = () => {
     switch (activeTab) {
+      case 'password':
+        return (
+          <form onSubmit={handleProfileSubmit} className="space-y-6 text-left">
+            <h3 className="text-sm font-bold text-slate-900 dark:text-white border-b border-slate-200 dark:border-dark-800 pb-3">Update Account Password</h3>
+            
+            {success && (
+              <div className="flex items-center gap-2 rounded-xl bg-emerald-500/10 border border-emerald-500/35 p-4 text-xs text-emerald-600 dark:text-emerald-300">
+                <CheckCircle className="h-4 w-4 shrink-0 text-emerald-500" />
+                <span>{success}</span>
+              </div>
+            )}
+
+            {error && (
+              <div className="flex items-start gap-2 rounded-xl bg-rose-500/10 border border-rose-500/35 p-4 text-xs text-rose-600 dark:text-rose-200">
+                <ShieldAlert className="h-4 w-4 shrink-0 text-rose-500" />
+                <span>{error}</span>
+              </div>
+            )}
+
+            <div className="space-y-4 max-w-lg">
+              <div>
+                <label className="block text-xs font-semibold text-slate-700 dark:text-dark-300 mb-2">New Password</label>
+                <div className="relative">
+                  <span className="absolute inset-y-0 left-0 flex items-center pl-3 text-slate-400 dark:text-dark-400">
+                    <Lock className="h-4.5 w-4.5" />
+                  </span>
+                  <input
+                    name="password"
+                    type="password"
+                    required
+                    value={formData.password}
+                    onChange={handleChange}
+                    placeholder="Enter new password (min 6 characters)"
+                    className="block w-full rounded-xl bg-slate-50 dark:bg-dark-900 border border-slate-200 dark:border-dark-800 py-3 pl-10 pr-3 text-slate-900 dark:text-white focus:border-blue-500 focus:outline-none text-sm transition-colors"
+                  />
+                </div>
+              </div>
+
+              <div>
+                <label className="block text-xs font-semibold text-slate-700 dark:text-dark-300 mb-2">Confirm New Password</label>
+                <div className="relative">
+                  <span className="absolute inset-y-0 left-0 flex items-center pl-3 text-slate-400 dark:text-dark-400">
+                    <Lock className="h-4.5 w-4.5" />
+                  </span>
+                  <input
+                    name="confirmPassword"
+                    type="password"
+                    required
+                    value={formData.confirmPassword}
+                    onChange={handleChange}
+                    placeholder="Re-enter new password"
+                    className="block w-full rounded-xl bg-slate-50 dark:bg-dark-900 border border-slate-200 dark:border-dark-800 py-3 pl-10 pr-3 text-slate-900 dark:text-white focus:border-blue-500 focus:outline-none text-sm transition-colors"
+                  />
+                </div>
+              </div>
+            </div>
+
+            <div className="flex justify-end pt-4 border-t border-slate-200 dark:border-dark-850">
+              <button
+                type="submit"
+                disabled={saving}
+                className="rounded-xl bg-blue-600 px-6 py-3 text-xs font-bold text-white hover:bg-blue-700 transition-all shadow-md disabled:opacity-50"
+              >
+                {saving ? 'Updating password...' : 'Update Password'}
+              </button>
+            </div>
+          </form>
+        );
+
       case 'address':
         return (
           <div className="space-y-6">

@@ -409,7 +409,7 @@ const Header = () => {
 
                             {/* Option: Change Password */}
                             <Link
-                              to="/profile?tab=profile"
+                              to="/profile?tab=password"
                               onClick={() => setShowUserMenu(false)}
                               className="flex items-center gap-4 p-3 rounded-2xl hover:bg-[#F8FAFC] dark:hover:bg-dark-900 transition-colors group"
                             >
@@ -487,7 +487,7 @@ const Header = () => {
 
                             {/* Option: Change Password */}
                             <Link
-                              to="/profile?tab=profile"
+                              to="/profile?tab=password"
                               onClick={() => setShowUserMenu(false)}
                               className="flex items-center gap-4 p-3 rounded-2xl hover:bg-[#F8FAFC] dark:hover:bg-dark-900 transition-colors group"
                             >
