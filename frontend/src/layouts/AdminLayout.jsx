@@ -4,7 +4,7 @@ import { useAuth } from '../context/AuthContext';
 import axiosClient from '../api/axiosClient';
 import { 
   LayoutDashboard, FileText, Clock, Settings, Users, 
-  CheckCircle2, XCircle, LogOut, Menu, X, UserCircle, HelpCircle, UploadCloud 
+  CheckCircle2, XCircle, LogOut, Menu, X, UserCircle, HelpCircle, UploadCloud, Lock 
 } from 'lucide-react';
 import { FaReact } from 'react-icons/fa';
 import NotificationToast from '../components/NotificationToast';
@@ -61,7 +61,8 @@ const AdminLayout = ({ children }) => {
     {
       title: 'ACCOUNT',
       items: [
-        { name: 'Admin Profile', path: '/admin/dashboard', icon: UserCircle },
+        { name: 'Admin Profile', path: '/admin/profile?tab=profile', icon: UserCircle },
+        { name: 'Change Password', path: '/admin/profile?tab=password', icon: Lock },
       ]
     }
   ];
@@ -158,7 +159,7 @@ const AdminLayout = ({ children }) => {
               <HelpCircle className="h-4.5 w-4.5 text-blue-500 shrink-0 mt-0.5" />
               <div className="space-y-0.5">
                 <h5 className="text-[10px] font-extrabold text-white">Need Help?</h5>
-                <Link to="/admin/dashboard" className="text-[9px] font-bold text-blue-400 hover:text-blue-300 transition-colors block">Contact Support</Link>
+                <Link to="/admin/profile?tab=support" className="text-[9px] font-bold text-blue-400 hover:text-blue-300 transition-colors block">Contact Support</Link>
               </div>
             </div>
 

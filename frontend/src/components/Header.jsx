@@ -409,7 +409,7 @@ const Header = () => {
 
                             {/* Option: Change Password */}
                             <Link
-                              to="/profile?tab=password"
+                              to={user?.role === 'admin' ? '/admin/profile?tab=password' : '/profile?tab=password'}
                               onClick={() => setShowUserMenu(false)}
                               className="flex items-center gap-4 p-3 rounded-2xl hover:bg-[#F8FAFC] dark:hover:bg-dark-900 transition-colors group"
                             >
@@ -505,7 +505,7 @@ const Header = () => {
                         <div className="space-y-0.5 py-2 border-t border-[#E2E8F0] dark:border-dark-800">
                           {/* Option: Help & Support */}
                           <Link
-                            to="/profile?tab=help"
+                            to={user?.role === 'admin' ? '/admin/profile?tab=help' : '/profile?tab=help'}
                             onClick={() => setShowUserMenu(false)}
                             className="flex items-center gap-4 p-3 rounded-2xl hover:bg-[#F8FAFC] dark:hover:bg-dark-900 transition-colors group"
                           >

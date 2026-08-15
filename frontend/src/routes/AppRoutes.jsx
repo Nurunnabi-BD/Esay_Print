@@ -134,6 +134,16 @@ const AppRoutes = () => {
           </AdminRoute>
         }
       />
+      <Route
+        path="/admin/profile"
+        element={
+          <AdminRoute>
+            <AdminLayout>
+              <Profile />
+            </AdminLayout>
+          </AdminRoute>
+        }
+      />
 
       {/* Special Fullscreen Admin Print View */}
       <Route
