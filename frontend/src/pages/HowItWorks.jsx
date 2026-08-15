@@ -181,8 +181,8 @@ const HowItWorks = () => {
         {/* 4. Frequently Asked Questions (FAQ) */}
         <div className="max-w-3xl mx-auto space-y-6 text-left">
           <div className="text-center space-y-2">
-            <h2 className="text-2xl font-black text-slate-900 dark:text-white">Frequently Asked Questions</h2>
-            <p className="text-xs text-slate-500 dark:text-dark-400">Everything you need to know about the printing process.</p>
+            <h2 className="text-2xl font-black text-[#0F172A] dark:text-white">Frequently Asked Questions</h2>
+            <p className="text-xs text-[#64748B] dark:text-dark-400">Everything you need to know about the printing process.</p>
           </div>
 
           <div className="space-y-3">
@@ -195,9 +195,9 @@ const HowItWorks = () => {
                 >
                   <button
                     onClick={() => setActiveFaq(isOpen ? null : index)}
-                    className="w-full p-5 flex justify-between items-center text-left hover:bg-slate-50 dark:hover:bg-dark-900/50 transition-colors"
+                    className="w-full p-5 flex justify-between items-center text-left hover:bg-slate-50 dark:hover:bg-dark-900/50 transition-colors text-[#0F172A] dark:text-white"
                   >
-                    <span className="text-sm font-extrabold text-slate-900 dark:text-white pr-4">{faq.q}</span>
+                    <span className="text-sm font-bold text-[#0F172A] dark:text-white pr-4">{faq.q}</span>
                     {isOpen ? (
                       <ChevronUp className="h-4 w-4 text-blue-600 dark:text-blue-400 shrink-0" />
                     ) : (
@@ -205,7 +205,7 @@ const HowItWorks = () => {
                     )}
                   </button>
                   {isOpen && (
-                    <div className="p-5 pt-0 text-xs text-slate-500 dark:text-dark-400 font-medium leading-relaxed border-t border-slate-100 dark:border-dark-900">
+                    <div className="p-5 pt-3 text-xs text-[#475569] dark:text-dark-300 font-medium leading-relaxed border-t border-slate-100 dark:border-dark-900 bg-slate-50/50 dark:bg-dark-900/30">
                       {faq.a}
                     </div>
                   )}

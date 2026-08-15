@@ -54,65 +54,26 @@
   --color-footer-hover: #60A5FA;
 }
 
-.dark .text-white {
-  color: #ffffff !important;
-}
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-@layer base {
-  body {
-    @apply bg-dark-950 text-dark-100 font-sans antialiased selection:bg-brand-600 selection:text-white min-h-screen;
-  }
-  
-  h1, h2, h3, h4, h5, h6, button, .btn, a.bg-blue-600, a.bg-brand-600, .font-tech {
-    font-family: 'Josefin Sans', sans-serif !important;
-  }
+/* Ensure dark mode text-white remains white */
+.dark .text-white {
+  color: #ffffff;
 }
 
-/* System-wide light-mode text-white override */
-.text-white {
-  color: #0f172a !important;
-}
-
-/* Re-enforce white text on dark/brand-colored backgrounds */
-button,
-button *,
-a.bg-blue-600,
-a.bg-blue-600 *,
-a.bg-blue-700,
-a.bg-blue-700 *,
-a.bg-brand-600,
-a.bg-brand-600 *,
+/* Ensure solid brand background buttons & sidebar maintain white text */
 .bg-blue-600,
-.bg-blue-600 *,
 .bg-blue-700,
-.bg-blue-700 *,
 .bg-brand-600,
-.bg-brand-600 *,
 .bg-brand-700,
-.bg-brand-700 *,
 .bg-rose-600,
-.bg-rose-600 *,
 .bg-rose-700,
-.bg-rose-700 *,
 .bg-emerald-600,
-.bg-emerald-600 *,
-.bg-emerald-500,
-.bg-emerald-500 *,
-.bg-slate-900,
-.bg-slate-900 *,
-.bg-slate-950,
-.bg-slate-950 *,
-.bg-\[\#0F172A\],
-.bg-\[\#0F172A\] *,
 aside,
-aside *,
-.text-white-force,
-.text-white-force * {
-  color: #ffffff !important;
+.text-white-force {
+  color: #ffffff;
 }
 /* Premium Light-mode glassmorphism styles */
 .glass {
