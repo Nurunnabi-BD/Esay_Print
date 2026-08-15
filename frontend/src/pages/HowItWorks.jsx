@@ -209,7 +209,7 @@ const HowItWorks = () => {
                     )}
                   </div>
                   {isOpen && (
-                    <div className="p-5 pt-3 text-xs text-slate-600 dark:text-dark-300 font-medium leading-relaxed border-t border-slate-150 dark:border-dark-850 bg-slate-50/80 dark:bg-dark-900/60 text-left">
+                    <div className="p-5 pt-4 text-xs text-slate-700 dark:text-slate-200 font-medium leading-relaxed border-t border-slate-200 dark:border-dark-800 bg-slate-50 dark:bg-[#1E293B] text-left">
                       {faq.a}
                     </div>
                   )}
