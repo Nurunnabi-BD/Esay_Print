@@ -18,7 +18,10 @@ import {
   Sun,
   Moon,
   Menu,
-  X
+  X,
+  LayoutDashboard,
+  Printer,
+  Users
 } from "lucide-react";
 import { FaReact } from "react-icons/fa";
 import { useAuth } from "../context/AuthContext";
@@ -356,83 +359,148 @@ const Header = () => {
 
                       {/* 2. Menu Options list */}
                       <div className="p-3 text-left max-h-[380px] overflow-y-auto scrollbar-none">
-                        
-                        <div className="space-y-0.5 pb-2">
-                          {/* Option: My Profile */}
-                          <Link
-                            to="/profile?tab=profile"
-                            onClick={() => setShowUserMenu(false)}
-                            className="flex items-center gap-4 p-3 rounded-2xl hover:bg-[#F8FAFC] dark:hover:bg-dark-900 transition-colors group"
-                          >
-                            <div className="h-10 w-10 rounded-xl bg-[#F8FAFC] dark:bg-dark-900 flex items-center justify-center text-[#64748B] dark:text-dark-400 group-hover:text-[#2563EB] dark:group-hover:text-blue-400 group-hover:bg-[#EFF6FF] dark:group-hover:bg-blue-950/40 transition-all shrink-0">
-                              <User className="h-5 w-5" />
-                            </div>
-                            <div className="leading-tight text-left">
-                              <h5 className="text-sm font-bold text-[#0F172A] dark:text-white group-hover:text-[#2563EB] dark:group-hover:text-blue-400 transition-colors">My Profile</h5>
-                              <p className="text-xs text-[#64748B] dark:text-dark-400 font-medium mt-0.5">View and edit your profile</p>
-                            </div>
-                          </Link>
+                        {user?.role === 'admin' ? (
+                          /* ADMIN DROPDOWN OPTIONS */
+                          <div className="space-y-0.5 pb-2">
+                            {/* Option: Admin Dashboard */}
+                            <Link
+                              to="/admin/dashboard"
+                              onClick={() => setShowUserMenu(false)}
+                              className="flex items-center gap-4 p-3 rounded-2xl hover:bg-[#F8FAFC] dark:hover:bg-dark-900 transition-colors group"
+                            >
+                              <div className="h-10 w-10 rounded-xl bg-[#F8FAFC] dark:bg-dark-900 flex items-center justify-center text-[#64748B] dark:text-dark-400 group-hover:text-[#2563EB] dark:group-hover:text-blue-400 group-hover:bg-[#EFF6FF] dark:group-hover:bg-blue-950/40 transition-all shrink-0">
+                                <LayoutDashboard className="h-5 w-5" />
+                              </div>
+                              <div className="leading-tight text-left">
+                                <h5 className="text-sm font-bold text-[#0F172A] dark:text-white group-hover:text-[#2563EB] dark:group-hover:text-blue-400 transition-colors">Admin Dashboard</h5>
+                                <p className="text-xs text-[#64748B] dark:text-dark-400 font-medium mt-0.5">Overview & system statistics</p>
+                              </div>
+                            </Link>
 
-                          {/* Option: Address Book */}
-                          <Link
-                            to="/profile?tab=address"
-                            onClick={() => setShowUserMenu(false)}
-                            className="flex items-center gap-4 p-3 rounded-2xl hover:bg-[#F8FAFC] dark:hover:bg-dark-900 transition-colors group"
-                          >
-                            <div className="h-10 w-10 rounded-xl bg-[#F8FAFC] dark:bg-dark-900 flex items-center justify-center text-[#64748B] dark:text-dark-400 group-hover:text-[#2563EB] dark:group-hover:text-blue-400 group-hover:bg-[#EFF6FF] dark:group-hover:bg-blue-950/40 transition-all shrink-0">
-                              <Contact className="h-5 w-5" />
-                            </div>
-                            <div className="leading-tight text-left">
-                              <h5 className="text-sm font-bold text-[#0F172A] dark:text-white group-hover:text-[#2563EB] dark:group-hover:text-blue-400 transition-colors">Address Book</h5>
-                              <p className="text-xs text-[#64748B] dark:text-dark-400 font-medium mt-0.5">Manage your addresses</p>
-                            </div>
-                          </Link>
+                            {/* Option: Print Queue */}
+                            <Link
+                              to="/admin/orders"
+                              onClick={() => setShowUserMenu(false)}
+                              className="flex items-center gap-4 p-3 rounded-2xl hover:bg-[#F8FAFC] dark:hover:bg-dark-900 transition-colors group"
+                            >
+                              <div className="h-10 w-10 rounded-xl bg-[#F8FAFC] dark:bg-dark-900 flex items-center justify-center text-[#64748B] dark:text-dark-400 group-hover:text-[#2563EB] dark:group-hover:text-blue-400 group-hover:bg-[#EFF6FF] dark:group-hover:bg-blue-950/40 transition-all shrink-0">
+                                <Printer className="h-5 w-5" />
+                              </div>
+                              <div className="leading-tight text-left">
+                                <h5 className="text-sm font-bold text-[#0F172A] dark:text-white group-hover:text-[#2563EB] dark:group-hover:text-blue-400 transition-colors">Print Queue</h5>
+                                <p className="text-xs text-[#64748B] dark:text-dark-400 font-medium mt-0.5">Manage student print orders</p>
+                              </div>
+                            </Link>
 
-                          {/* Option: Payment Methods */}
-                          <Link
-                            to="/profile?tab=payment"
-                            onClick={() => setShowUserMenu(false)}
-                            className="flex items-center gap-4 p-3 rounded-2xl hover:bg-[#F8FAFC] dark:hover:bg-dark-900 transition-colors group"
-                          >
-                            <div className="h-10 w-10 rounded-xl bg-[#F8FAFC] dark:bg-dark-900 flex items-center justify-center text-[#64748B] dark:text-dark-400 group-hover:text-[#2563EB] dark:group-hover:text-blue-400 group-hover:bg-[#EFF6FF] dark:group-hover:bg-blue-950/40 transition-all shrink-0">
-                              <CreditCard className="h-5 w-5" />
-                            </div>
-                            <div className="leading-tight text-left">
-                              <h5 className="text-sm font-bold text-[#0F172A] dark:text-white group-hover:text-[#2563EB] dark:group-hover:text-blue-400 transition-colors">Payment Methods</h5>
-                              <p className="text-xs text-[#64748B] dark:text-dark-400 font-medium mt-0.5">Manage your payment options</p>
-                            </div>
-                          </Link>
+                            {/* Option: Registered Students */}
+                            <Link
+                              to="/admin/users"
+                              onClick={() => setShowUserMenu(false)}
+                              className="flex items-center gap-4 p-3 rounded-2xl hover:bg-[#F8FAFC] dark:hover:bg-dark-900 transition-colors group"
+                            >
+                              <div className="h-10 w-10 rounded-xl bg-[#F8FAFC] dark:bg-dark-900 flex items-center justify-center text-[#64748B] dark:text-dark-400 group-hover:text-[#2563EB] dark:group-hover:text-blue-400 group-hover:bg-[#EFF6FF] dark:group-hover:bg-blue-950/40 transition-all shrink-0">
+                                <Users className="h-5 w-5" />
+                              </div>
+                              <div className="leading-tight text-left">
+                                <h5 className="text-sm font-bold text-[#0F172A] dark:text-white group-hover:text-[#2563EB] dark:group-hover:text-blue-400 transition-colors">Registered Students</h5>
+                                <p className="text-xs text-[#64748B] dark:text-dark-400 font-medium mt-0.5">View & manage student accounts</p>
+                              </div>
+                            </Link>
 
-                          {/* Option: Notification Settings */}
-                          <Link
-                            to="/profile?tab=settings"
-                            onClick={() => setShowUserMenu(false)}
-                            className="flex items-center gap-4 p-3 rounded-2xl hover:bg-[#F8FAFC] dark:hover:bg-dark-900 transition-colors group"
-                          >
-                            <div className="h-10 w-10 rounded-xl bg-[#F8FAFC] dark:bg-dark-900 flex items-center justify-center text-[#64748B] dark:text-dark-400 group-hover:text-[#2563EB] dark:group-hover:text-blue-400 group-hover:bg-[#EFF6FF] dark:group-hover:bg-blue-950/40 transition-all shrink-0">
-                              <Bell className="h-5 w-5" />
-                            </div>
-                            <div className="leading-tight text-left">
-                              <h5 className="text-sm font-bold text-[#0F172A] dark:text-white group-hover:text-[#2563EB] dark:group-hover:text-blue-400 transition-colors">Notification Settings</h5>
-                              <p className="text-xs text-[#64748B] dark:text-dark-400 font-medium mt-0.5">Manage your notifications</p>
-                            </div>
-                          </Link>
+                            {/* Option: Change Password */}
+                            <Link
+                              to="/profile?tab=profile"
+                              onClick={() => setShowUserMenu(false)}
+                              className="flex items-center gap-4 p-3 rounded-2xl hover:bg-[#F8FAFC] dark:hover:bg-dark-900 transition-colors group"
+                            >
+                              <div className="h-10 w-10 rounded-xl bg-[#F8FAFC] dark:bg-dark-900 flex items-center justify-center text-[#64748B] dark:text-dark-400 group-hover:text-[#2563EB] dark:group-hover:text-blue-400 group-hover:bg-[#EFF6FF] dark:group-hover:bg-blue-950/40 transition-all shrink-0">
+                                <Lock className="h-5 w-5" />
+                              </div>
+                              <div className="leading-tight text-left">
+                                <h5 className="text-sm font-bold text-[#0F172A] dark:text-white group-hover:text-[#2563EB] dark:group-hover:text-blue-400 transition-colors">Change Password</h5>
+                                <p className="text-xs text-[#64748B] dark:text-dark-400 font-medium mt-0.5">Update admin account password</p>
+                              </div>
+                            </Link>
+                          </div>
+                        ) : (
+                          /* STUDENT DROPDOWN OPTIONS */
+                          <div className="space-y-0.5 pb-2">
+                            {/* Option: My Profile */}
+                            <Link
+                              to="/profile?tab=profile"
+                              onClick={() => setShowUserMenu(false)}
+                              className="flex items-center gap-4 p-3 rounded-2xl hover:bg-[#F8FAFC] dark:hover:bg-dark-900 transition-colors group"
+                            >
+                              <div className="h-10 w-10 rounded-xl bg-[#F8FAFC] dark:bg-dark-900 flex items-center justify-center text-[#64748B] dark:text-dark-400 group-hover:text-[#2563EB] dark:group-hover:text-blue-400 group-hover:bg-[#EFF6FF] dark:group-hover:bg-blue-950/40 transition-all shrink-0">
+                                <User className="h-5 w-5" />
+                              </div>
+                              <div className="leading-tight text-left">
+                                <h5 className="text-sm font-bold text-[#0F172A] dark:text-white group-hover:text-[#2563EB] dark:group-hover:text-blue-400 transition-colors">My Profile</h5>
+                                <p className="text-xs text-[#64748B] dark:text-dark-400 font-medium mt-0.5">View and edit your profile</p>
+                              </div>
+                            </Link>
 
-                          {/* Option: Change Password */}
-                          <Link
-                            to="/profile?tab=profile"
-                            onClick={() => setShowUserMenu(false)}
-                            className="flex items-center gap-4 p-3 rounded-2xl hover:bg-[#F8FAFC] dark:hover:bg-dark-900 transition-colors group"
-                          >
-                            <div className="h-10 w-10 rounded-xl bg-[#F8FAFC] dark:bg-dark-900 flex items-center justify-center text-[#64748B] dark:text-dark-400 group-hover:text-[#2563EB] dark:group-hover:text-blue-400 group-hover:bg-[#EFF6FF] dark:group-hover:bg-blue-950/40 transition-all shrink-0">
-                              <Lock className="h-5 w-5" />
-                            </div>
-                            <div className="leading-tight text-left">
-                              <h5 className="text-sm font-bold text-[#0F172A] dark:text-white group-hover:text-[#2563EB] dark:group-hover:text-blue-400 transition-colors">Change Password</h5>
-                              <p className="text-xs text-[#64748B] dark:text-dark-400 font-medium mt-0.5">Update your account password</p>
-                            </div>
-                          </Link>
-                        </div>
+                            {/* Option: Address Book */}
+                            <Link
+                              to="/profile?tab=address"
+                              onClick={() => setShowUserMenu(false)}
+                              className="flex items-center gap-4 p-3 rounded-2xl hover:bg-[#F8FAFC] dark:hover:bg-dark-900 transition-colors group"
+                            >
+                              <div className="h-10 w-10 rounded-xl bg-[#F8FAFC] dark:bg-dark-900 flex items-center justify-center text-[#64748B] dark:text-dark-400 group-hover:text-[#2563EB] dark:group-hover:text-blue-400 group-hover:bg-[#EFF6FF] dark:group-hover:bg-blue-950/40 transition-all shrink-0">
+                                <Contact className="h-5 w-5" />
+                              </div>
+                              <div className="leading-tight text-left">
+                                <h5 className="text-sm font-bold text-[#0F172A] dark:text-white group-hover:text-[#2563EB] dark:group-hover:text-blue-400 transition-colors">Address Book</h5>
+                                <p className="text-xs text-[#64748B] dark:text-dark-400 font-medium mt-0.5">Manage your addresses</p>
+                              </div>
+                            </Link>
+
+                            {/* Option: Payment Methods */}
+                            <Link
+                              to="/profile?tab=payment"
+                              onClick={() => setShowUserMenu(false)}
+                              className="flex items-center gap-4 p-3 rounded-2xl hover:bg-[#F8FAFC] dark:hover:bg-dark-900 transition-colors group"
+                            >
+                              <div className="h-10 w-10 rounded-xl bg-[#F8FAFC] dark:bg-dark-900 flex items-center justify-center text-[#64748B] dark:text-dark-400 group-hover:text-[#2563EB] dark:group-hover:text-blue-400 group-hover:bg-[#EFF6FF] dark:group-hover:bg-blue-950/40 transition-all shrink-0">
+                                <CreditCard className="h-5 w-5" />
+                              </div>
+                              <div className="leading-tight text-left">
+                                <h5 className="text-sm font-bold text-[#0F172A] dark:text-white group-hover:text-[#2563EB] dark:group-hover:text-blue-400 transition-colors">Payment Methods</h5>
+                                <p className="text-xs text-[#64748B] dark:text-dark-400 font-medium mt-0.5">Manage your payment options</p>
+                              </div>
+                            </Link>
+
+                            {/* Option: Notification Settings */}
+                            <Link
+                              to="/profile?tab=settings"
+                              onClick={() => setShowUserMenu(false)}
+                              className="flex items-center gap-4 p-3 rounded-2xl hover:bg-[#F8FAFC] dark:hover:bg-dark-900 transition-colors group"
+                            >
+                              <div className="h-10 w-10 rounded-xl bg-[#F8FAFC] dark:bg-dark-900 flex items-center justify-center text-[#64748B] dark:text-dark-400 group-hover:text-[#2563EB] dark:group-hover:text-blue-400 group-hover:bg-[#EFF6FF] dark:group-hover:bg-blue-950/40 transition-all shrink-0">
+                                <Bell className="h-5 w-5" />
+                              </div>
+                              <div className="leading-tight text-left">
+                                <h5 className="text-sm font-bold text-[#0F172A] dark:text-white group-hover:text-[#2563EB] dark:group-hover:text-blue-400 transition-colors">Notification Settings</h5>
+                                <p className="text-xs text-[#64748B] dark:text-dark-400 font-medium mt-0.5">Manage your notifications</p>
+                              </div>
+                            </Link>
+
+                            {/* Option: Change Password */}
+                            <Link
+                              to="/profile?tab=profile"
+                              onClick={() => setShowUserMenu(false)}
+                              className="flex items-center gap-4 p-3 rounded-2xl hover:bg-[#F8FAFC] dark:hover:bg-dark-900 transition-colors group"
+                            >
+                              <div className="h-10 w-10 rounded-xl bg-[#F8FAFC] dark:bg-dark-900 flex items-center justify-center text-[#64748B] dark:text-dark-400 group-hover:text-[#2563EB] dark:group-hover:text-blue-400 group-hover:bg-[#EFF6FF] dark:group-hover:bg-blue-950/40 transition-all shrink-0">
+                                <Lock className="h-5 w-5" />
+                              </div>
+                              <div className="leading-tight text-left">
+                                <h5 className="text-sm font-bold text-[#0F172A] dark:text-white group-hover:text-[#2563EB] dark:group-hover:text-blue-400 transition-colors">Change Password</h5>
+                                <p className="text-xs text-[#64748B] dark:text-dark-400 font-medium mt-0.5">Update your account password</p>
+                              </div>
+                            </Link>
+                          </div>
+                        )}
 
                         <div className="space-y-0.5 py-2 border-t border-[#E2E8F0] dark:border-dark-800">
                           {/* Option: Help & Support */}
