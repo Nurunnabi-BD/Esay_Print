@@ -160,7 +160,7 @@ const Header = () => {
             <Link
               to={user.role === 'admin' ? '/admin/dashboard' : '/dashboard'}
               className={`pb-1.5 transition-all border-b-2 ${
-                location.pathname !== '/' && location.pathname !== '/services' && !['/login', '/signup', '/admin/login'].includes(location.pathname)
+                (location.pathname === '/dashboard' || location.pathname === '/admin/dashboard' || location.pathname.startsWith('/admin') || location.pathname === '/my-orders') && location.pathname !== '/how-it-works' && location.pathname !== '/services' && location.pathname !== '/profile'
                   ? 'text-blue-600 border-blue-600 font-black'
                   : 'text-slate-600 dark:text-dark-350 border-transparent hover:text-blue-600 dark:hover:text-blue-400'
               }`}
@@ -594,7 +594,7 @@ const Header = () => {
                 to={user.role === 'admin' ? '/admin/dashboard' : '/dashboard'}
                 onClick={() => setShowMobileMenu(false)}
                 className={`py-2.5 border-b border-slate-50 dark:border-dark-900 flex items-center justify-between ${
-                  location.pathname !== '/' && location.pathname !== '/services' && !['/login', '/signup', '/admin/login'].includes(location.pathname)
+                  (location.pathname === '/dashboard' || location.pathname === '/admin/dashboard' || location.pathname.startsWith('/admin') || location.pathname === '/my-orders') && location.pathname !== '/how-it-works' && location.pathname !== '/services' && location.pathname !== '/profile'
                     ? 'text-blue-600 font-black'
                     : 'text-slate-600 dark:text-dark-350 hover:text-blue-600 dark:hover:text-blue-400'
                 }`}

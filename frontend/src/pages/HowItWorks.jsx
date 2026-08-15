@@ -181,8 +181,8 @@ const HowItWorks = () => {
         {/* 4. Frequently Asked Questions (FAQ) */}
         <div className="max-w-3xl mx-auto space-y-6 text-left">
           <div className="text-center space-y-2">
-            <h2 className="text-2xl font-black text-[#0F172A] dark:text-white">Frequently Asked Questions</h2>
-            <p className="text-xs text-[#64748B] dark:text-dark-400">Everything you need to know about the printing process.</p>
+            <h2 className="text-2xl font-black text-slate-900 dark:text-white">Frequently Asked Questions</h2>
+            <p className="text-xs text-slate-500 dark:text-dark-400">Everything you need to know about the printing process.</p>
           </div>
 
           <div className="space-y-3">
@@ -191,21 +191,25 @@ const HowItWorks = () => {
               return (
                 <div 
                   key={index} 
-                  className="rounded-2xl border border-slate-200 dark:border-dark-800 bg-white dark:bg-dark-950 overflow-hidden shadow-sm transition-all"
+                  className={`rounded-2xl border transition-all overflow-hidden ${
+                    isOpen 
+                      ? 'border-blue-500/40 dark:border-blue-500/40 bg-white dark:bg-dark-950 shadow-md ring-1 ring-blue-500/20' 
+                      : 'border-slate-200 dark:border-dark-800 bg-white dark:bg-dark-950 shadow-sm'
+                  }`}
                 >
-                  <button
+                  <div
                     onClick={() => setActiveFaq(isOpen ? null : index)}
-                    className="w-full p-5 flex justify-between items-center text-left hover:bg-slate-50 dark:hover:bg-dark-900/50 transition-colors text-[#0F172A] dark:text-white"
+                    className="w-full p-5 flex justify-between items-center text-left cursor-pointer transition-colors select-none"
                   >
-                    <span className="text-sm font-bold text-[#0F172A] dark:text-white pr-4">{faq.q}</span>
+                    <span className="text-sm font-extrabold text-slate-900 dark:text-white pr-4 leading-snug">{faq.q}</span>
                     {isOpen ? (
-                      <ChevronUp className="h-4 w-4 text-blue-600 dark:text-blue-400 shrink-0" />
+                      <ChevronUp className="h-4.5 w-4.5 text-blue-600 dark:text-blue-400 shrink-0" />
                     ) : (
-                      <ChevronDown className="h-4 w-4 text-slate-400 dark:text-dark-500 shrink-0" />
+                      <ChevronDown className="h-4.5 w-4.5 text-slate-400 dark:text-dark-500 shrink-0" />
                     )}
-                  </button>
+                  </div>
                   {isOpen && (
-                    <div className="p-5 pt-3 text-xs text-[#475569] dark:text-dark-300 font-medium leading-relaxed border-t border-slate-100 dark:border-dark-900 bg-slate-50/50 dark:bg-dark-900/30">
+                    <div className="p-5 pt-3 text-xs text-slate-600 dark:text-dark-300 font-medium leading-relaxed border-t border-slate-150 dark:border-dark-850 bg-slate-50/80 dark:bg-dark-900/60 text-left">
                       {faq.a}
                     </div>
                   )}
