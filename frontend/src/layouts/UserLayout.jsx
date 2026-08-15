@@ -22,17 +22,31 @@ const UserLayout = ({ children }) => {
     navigate('/login');
   };
 
+  const isAdmin = user?.role === 'admin';
+
   const fetchLiveCounts = async () => {
     if (!user) return;
     try {
-      const res = await axiosClient.get('/orders/my-orders');
-      if (res.data.success) {
-        const list = res.data.orders;
-        setCounts({
-          pending: list.filter(o => ['Order Received', 'Processing'].includes(o.status)).length,
-          completed: list.filter(o => o.status === 'Completed').length,
-          cancelled: list.filter(o => o.status === 'Cancelled').length
-        });
+      if (isAdmin) {
+        const res = await axiosClient.get('/admin/statistics');
+        if (res.data.success) {
+          setCounts({
+            pending: res.data.counts.new || 0,
+            inProgress: res.data.counts.processing || 0,
+            completed: res.data.counts.completed || 0,
+            cancelled: (res.data.counts.cancelled || 0) + (res.data.counts.failed || 0)
+          });
+        }
+      } else {
+        const res = await axiosClient.get('/orders/my-orders');
+        if (res.data.success) {
+          const list = res.data.orders;
+          setCounts({
+            pending: list.filter(o => ['Order Received', 'Processing'].includes(o.status)).length,
+            completed: list.filter(o => o.status === 'Completed').length,
+            cancelled: list.filter(o => o.status === 'Cancelled').length
+          });
+        }
       }
     } catch (error) {
       console.error('Failed to load user order counts for sidebar', error);
@@ -46,7 +60,38 @@ const UserLayout = ({ children }) => {
     return () => clearInterval(interval);
   }, [user]);
 
-  const sections = [
+  const sections = isAdmin ? [
+    {
+      title: 'ORDERS',
+      items: [
+        { name: 'All Orders', path: '/admin/orders', icon: FileText },
+        { name: 'Pending Orders', path: '/admin/orders?status=Order Received', icon: Clock, count: counts.pending, color: 'bg-amber-500/10 text-amber-500' },
+        { name: 'In Progress', path: '/admin/orders?status=Processing', icon: Settings, count: counts.inProgress, color: 'bg-blue-600/10 text-blue-500' },
+        { name: 'Completed Orders', path: '/admin/orders?status=Completed', icon: CheckCircle, count: counts.completed, color: 'bg-emerald-500/10 text-emerald-500' },
+        { name: 'Cancelled Orders', path: '/admin/orders?status=Cancelled', icon: XCircle, count: counts.cancelled, color: 'bg-rose-500/10 text-rose-500' },
+      ]
+    },
+    {
+      title: 'MANAGEMENT',
+      items: [
+        { name: 'Customers', path: '/admin/users', icon: Users },
+      ]
+    },
+    {
+      title: 'ACCOUNT',
+      items: [
+        { name: 'Admin Profile', path: '/profile?tab=profile', icon: UserCircle },
+        { name: 'Settings', path: '/profile?tab=settings', icon: Settings },
+      ]
+    },
+    {
+      title: 'SUPPORT',
+      items: [
+        { name: 'Help Center', path: '/profile?tab=help', icon: HelpCircle },
+        { name: 'Logout', path: 'logout', icon: LogOut, isAction: true }
+      ]
+    }
+  ] : [
     {
       title: 'ORDERS',
       items: [
@@ -76,6 +121,8 @@ const UserLayout = ({ children }) => {
     }
   ];
 
+  const dashboardPath = isAdmin ? '/admin/dashboard' : '/dashboard';
+
   return (
     <div className="min-h-screen bg-slate-50 dark:bg-dark-900 flex flex-col text-slate-900 dark:text-white font-sans transition-colors duration-300">
       {/* Global Brand Header */}
@@ -103,7 +150,7 @@ const UserLayout = ({ children }) => {
         >
           <div className="space-y-6 overflow-y-auto max-h-[80vh] scrollbar-none pr-1">
             {/* Logo Branding */}
-            <Link to="/dashboard" className="flex items-center gap-3 font-extrabold text-white text-lg border-b border-slate-800 pb-5">
+            <Link to={dashboardPath} className="flex items-center gap-3 font-extrabold text-white text-lg border-b border-slate-800 pb-5">
               <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-blue-600 text-white shadow-md">
                 <FaReact className="h-5 w-5 animate-spin-slow text-white" />
               </div>
@@ -115,10 +162,10 @@ const UserLayout = ({ children }) => {
 
             {/* Active Dashboard Button */}
             <Link
-              to="/dashboard"
+              to={dashboardPath}
               onClick={() => setSidebarOpen(false)}
               className={`flex items-center gap-3 px-4 py-3 rounded-xl text-xs font-bold transition-all ${
-                location.pathname === '/dashboard' && !location.search
+                (location.pathname === '/dashboard' || location.pathname === '/admin/dashboard') && !location.search
                   ? 'bg-blue-600 text-white shadow-md shadow-blue-600/10'
                   : 'text-slate-300 hover:bg-slate-800 hover:text-white'
               }`}
