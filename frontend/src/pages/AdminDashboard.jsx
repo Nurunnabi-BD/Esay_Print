@@ -249,18 +249,18 @@ const AdminDashboard = () => {
   return (
     <div className="space-y-6">
       
-      {/* Top Welcome & Quick Actions Bar */}
+      {/* Top Welcome Bar */}
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 bg-white dark:bg-dark-950 p-6 rounded-3xl border border-slate-150 dark:border-dark-850 shadow-sm">
         <div>
           <h1 className="text-2xl font-extrabold text-slate-900 dark:text-white">Admin Control Panel</h1>
-          <p className="text-xs text-slate-500 dark:text-dark-400 mt-1">Manage printing queue, system users, and process document print jobs.</p>
+          <p className="text-xs text-slate-500 dark:text-dark-400 mt-1">Oversee all student print orders, manage print queue status, and track automatic revenue calculations.</p>
         </div>
         <Link
-          to="/dashboard?action=upload"
+          to="/admin/orders"
           className="flex items-center gap-2 px-5 py-3 rounded-xl bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold transition-all shadow-md hover:shadow-lg shrink-0"
         >
-          <UploadCloud className="h-4.5 w-4.5" />
-          Upload & Print Document
+          <FileText className="h-4.5 w-4.5" />
+          View Print Queue
         </Link>
       </div>
 
@@ -303,15 +303,15 @@ const AdminDashboard = () => {
           </div>
         </div>
 
-        {/* Card 4: Total Customers */}
+        {/* Card 4: Total Revenue (Calculated Automatically) */}
         <div className="glass rounded-3xl p-5 border border-slate-150 dark:border-dark-850 shadow-sm flex items-center justify-between bg-white dark:bg-dark-950 transition-colors duration-300">
           <div className="space-y-2 text-left">
-            <span className="text-[10px] font-bold text-slate-500 dark:text-dark-400 uppercase tracking-widest block">Total Customers</span>
-            <h3 className="text-3xl font-black text-slate-900 dark:text-white leading-none">{counts.users}</h3>
-            <span className="text-10px text-purple-600 dark:text-purple-400 font-bold block">↗ 10% from last month</span>
+            <span className="text-[10px] font-bold text-slate-500 dark:text-dark-400 uppercase tracking-widest block">Total Revenue</span>
+            <h3 className="text-3xl font-black text-emerald-600 dark:text-emerald-400 leading-none">{metrics.totalRevenue} BDT</h3>
+            <span className="text-10px text-slate-400 dark:text-dark-500 font-bold block">Auto calculated from print jobs</span>
           </div>
-          <div className="h-12 w-12 rounded-2xl bg-purple-50 dark:bg-purple-950/40 text-purple-500 dark:text-purple-400 flex items-center justify-center">
-            <Users className="h-6 w-6" />
+          <div className="h-12 w-12 rounded-2xl bg-emerald-50 dark:bg-emerald-950/40 text-emerald-500 dark:text-emerald-400 flex items-center justify-center">
+            <TrendingUp className="h-6 w-6" />
           </div>
         </div>
       </div>
