@@ -49,8 +49,8 @@ const createOrder = async (req, res) => {
       });
     }
 
-    // Ensure document belongs to the requesting user
-    if (doc.userId.toString() !== req.user.id) {
+    // Ensure document belongs to the requesting user or user is admin
+    if (doc.userId.toString() !== req.user.id && req.user.role !== 'admin') {
       return res.status(403).json({ 
         success: false, 
         message: 'Unauthorized access to this document.' 

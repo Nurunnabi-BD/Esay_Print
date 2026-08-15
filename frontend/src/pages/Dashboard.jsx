@@ -194,11 +194,24 @@ const Dashboard = () => {
     setOrderError('');
 
     try {
-      const res = await axiosClient.post('/orders/create', {
-        documentId: document._id,
-        printType,
-        copies
-      });
+      let res;
+      try {
+        res = await axiosClient.post('/orders/create', {
+          documentId: document._id,
+          printType,
+          copies
+        });
+      } catch (err) {
+        if (err.response?.status === 404) {
+          res = await axiosClient.post('/orders', {
+            documentId: document._id,
+            printType,
+            copies
+          });
+        } else {
+          throw err;
+        }
+      }
 
       if (res.data.success) {
         setWizardStep('confirm');

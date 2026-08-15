@@ -11,6 +11,7 @@ const { protect } = require('../middleware/authMiddleware');
 router.use(protect); // Secure all routes in this router
 
 router.post('/', createOrder);
+router.post('/create', createOrder);
 router.get('/my-orders', getMyOrders);
 router.route('/:id')
   .get(getOrderDetails);
