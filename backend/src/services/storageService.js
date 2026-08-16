@@ -2,7 +2,8 @@ const fs = require('fs');
 const path = require('path');
 const admin = require('firebase-admin');
 
-// Resolve path to the service account key
+// Resolve service account key (from JSON string env, or file path)
+const serviceAccountJsonEnv = process.env.FIREBASE_SERVICE_ACCOUNT;
 const serviceAccountPathEnv = process.env.FIREBASE_SERVICE_ACCOUNT_PATH;
 const defaultServiceAccountPath = path.join(__dirname, '../config/serviceAccountKey.json');
 const serviceAccountPath = serviceAccountPathEnv ? path.resolve(serviceAccountPathEnv) : defaultServiceAccountPath;
@@ -10,10 +11,23 @@ const serviceAccountPath = serviceAccountPathEnv ? path.resolve(serviceAccountPa
 let bucket = null;
 let isCloudConfigured = false;
 
-if (fs.existsSync(serviceAccountPath)) {
-  try {
-    const serviceAccount = require(serviceAccountPath);
-    
+try {
+  let serviceAccount = null;
+  if (serviceAccountJsonEnv) {
+    try {
+      // Support raw JSON string or base64 encoded JSON
+      const parsedJson = serviceAccountJsonEnv.trim().startsWith('{') 
+        ? serviceAccountJsonEnv 
+        : Buffer.from(serviceAccountJsonEnv, 'base64').toString('utf8');
+      serviceAccount = JSON.parse(parsedJson);
+    } catch (e) {
+      console.error('Storage Service: Failed to parse FIREBASE_SERVICE_ACCOUNT JSON env:', e.message);
+    }
+  } else if (fs.existsSync(serviceAccountPath)) {
+    serviceAccount = require(serviceAccountPath);
+  }
+
+  if (serviceAccount) {
     admin.initializeApp({
       credential: admin.credential.cert(serviceAccount),
       storageBucket: process.env.FIREBASE_STORAGE_BUCKET || `${serviceAccount.project_id}.appspot.com`
@@ -21,12 +35,12 @@ if (fs.existsSync(serviceAccountPath)) {
     
     bucket = admin.storage().bucket();
     isCloudConfigured = true;
-    console.log(`Storage Service: Firebase successfully initialized using key: ${path.basename(serviceAccountPath)}`);
-  } catch (error) {
-    console.error('Storage Service: Failed to initialize Firebase Admin:', error.message);
+    console.log(`Storage Service: Firebase Storage initialized successfully (Bucket: ${bucket.name})`);
+  } else {
+    console.log(`Storage Service: Firebase key not provided. Fallback to local storage (uploads/).`);
   }
-} else {
-  console.log(`Storage Service: Key file not found at ${serviceAccountPath}. Fallback to local storage (uploads/).`);
+} catch (error) {
+  console.error('Storage Service: Failed to initialize Firebase Admin:', error.message);
 }
 
 /**
