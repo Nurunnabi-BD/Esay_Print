@@ -213,14 +213,15 @@ const Dashboard = () => {
         }
       }
 
-      if (res.data.success) {
+      if (res.data?.success) {
         setWizardStep('confirm');
         fetchOrders();
       } else {
-        setOrderError(res.data.message || 'Failed to place print order.');
+        setOrderError(res.data?.message || 'Failed to place print order.');
       }
     } catch (error) {
-      setOrderError(error.response?.data?.message || 'Failed to connect. Try again.');
+      const errorMsg = error.response?.data?.message || error.message || 'Failed to connect. Try again.';
+      setOrderError(errorMsg);
     } finally {
       setPlacingOrder(false);
     }
@@ -607,16 +608,17 @@ const Dashboard = () => {
         {wizardStep === 'configure' && document && (
           <div className="space-y-6 text-left">
             {orderError && (
-              <div className="flex items-start gap-2 rounded-xl bg-rose-50 border border-rose-100 p-4 text-xs text-rose-600">
-                <ShieldAlert className="h-4.5 w-4.5 shrink-0 text-rose-500" />
-                <span>{orderError}</span>
-              </div>            )}
+              <div className="flex items-start gap-2.5 rounded-xl bg-rose-50 dark:bg-rose-950/40 border border-rose-200 dark:border-rose-900/50 p-4 text-xs font-semibold text-rose-700 dark:text-rose-300">
+                <ShieldAlert className="h-5 w-5 shrink-0 text-rose-500 dark:text-rose-400 mt-0.5" />
+                <span className="leading-snug">{orderError}</span>
+              </div>
+            )}
 
-            <div className="p-4 bg-slate-50 dark:bg-dark-900/60 border border-slate-100 dark:border-dark-800 rounded-xl flex items-center gap-3">
-              <FileText className="h-5 w-5 text-blue-600 dark:text-blue-400" />
+            <div className="p-4 bg-slate-100 dark:bg-dark-900 border border-slate-200 dark:border-dark-800 rounded-xl flex items-center gap-3">
+              <FileText className="h-5 w-5 text-blue-600 dark:text-blue-400 shrink-0" />
               <div className="leading-none text-left">
                 <h4 className="text-xs font-extrabold text-slate-900 dark:text-white">{document.originalName}</h4>
-                <span className="text-[9px] text-slate-450 dark:text-dark-400 block mt-1 uppercase font-black">{document.pageCount} Pages • {document.extension?.slice(1)}</span>
+                <span className="text-[10px] text-slate-500 dark:text-dark-400 block mt-1 uppercase font-black">{document.pageCount || 1} Pages • {document.extension ? document.extension.slice(1).toUpperCase() : 'DOCX'}</span>
               </div>
             </div>
 

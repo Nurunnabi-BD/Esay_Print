@@ -50,24 +50,26 @@ const createOrder = async (req, res) => {
     }
 
     // Ensure document belongs to the requesting user or user is admin
-    if (doc.userId.toString() !== req.user.id && req.user.role !== 'admin') {
+    const docUserId = doc.userId?._id ? doc.userId._id.toString() : doc.userId?.toString();
+    const reqUserId = req.user?._id ? req.user._id.toString() : (req.user?.id || '');
+    if (docUserId && docUserId !== reqUserId && req.user?.role !== 'admin') {
       return res.status(403).json({ 
         success: false, 
         message: 'Unauthorized access to this document.' 
       });
     }
 
-    // Ensure document processing has finished
-    if (doc.processingStatus !== 'processed') {
+    // Handle failed or incomplete processing status safely
+    if (doc.processingStatus === 'failed') {
       return res.status(400).json({
         success: false,
-        message: `File is not ready. Current processing state: ${doc.processingStatus}.`
+        message: `Document processing failed: ${doc.errorMessage || 'Unknown error'}. Please re-upload the document.`
       });
     }
 
-    // Calculate rates
+    // Calculate rates with safe page fallback
     const pricePerPage = printType === 'bw' ? bwPrice : colorPrice;
-    const pages = doc.pageCount;
+    const pages = (typeof doc.pageCount === 'number' && doc.pageCount > 0) ? doc.pageCount : 1;
     const totalPages = pages * numCopies;
     const totalCost = totalPages * pricePerPage;
 
@@ -83,8 +85,8 @@ const createOrder = async (req, res) => {
     // Create Order
     const order = await Order.create({
       orderId,
-      userId: req.user.id,
-      documentId,
+      userId: req.user._id || req.user.id,
+      documentId: doc._id,
       printType,
       pages,
       copies: numCopies,
@@ -99,7 +101,7 @@ const createOrder = async (req, res) => {
       orderId: order._id,
       previousStatus: 'None',
       newStatus: 'Order Received',
-      changedBy: req.user.id
+      changedBy: req.user._id || req.user.id
     });
 
     // Send notifications to all admin users (Phase 8)
@@ -111,7 +113,7 @@ const createOrder = async (req, res) => {
           orderId: order._id,
           type: 'info',
           title: 'New Print Order Received',
-          message: `Order #${order.orderId} has been placed by ${req.user.name} for ${order.totalPages} pages.`
+          message: `Order #${order.orderId} has been placed by ${req.user.name || 'Student'} for ${order.totalPages} pages.`
         });
       }
     } catch (notifErr) {
@@ -134,10 +136,10 @@ const createOrder = async (req, res) => {
     });
 
   } catch (error) {
-    console.error('Order creation error:', error.message);
+    console.error('Order creation error:', error);
     return res.status(500).json({ 
       success: false, 
-      message: 'Server error during order creation.' 
+      message: error.message || 'Server error during order creation.' 
     });
   }
 };
