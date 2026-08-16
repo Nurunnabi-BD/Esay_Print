@@ -227,6 +227,40 @@ const Dashboard = () => {
     }
   };
 
+  const handleDownloadDocument = async (docId, originalName) => {
+    try {
+      if (!docId) {
+        alert('Document is not available for download.');
+        return;
+      }
+      const res = await axiosClient.get(`/documents/${docId}/download`, {
+        responseType: 'blob'
+      });
+      const blob = new Blob([res.data], { type: res.headers['content-type'] || 'application/octet-stream' });
+      const url = window.URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = originalName || 'document';
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      window.URL.revokeObjectURL(url);
+    } catch (err) {
+      console.error('Failed to download document:', err);
+      let errMsg = 'Failed to download document. Please try again.';
+      if (err.response?.data instanceof Blob) {
+        try {
+          const text = await err.response.data.text();
+          const json = JSON.parse(text);
+          if (json.message) errMsg = json.message;
+        } catch (_) {}
+      } else if (err.response?.data?.message) {
+        errMsg = err.response.data.message;
+      }
+      alert(errMsg);
+    }
+  };
+
   const handleCancelOrder = async (orderId) => {
     if (!window.confirm('Are you sure you want to cancel this printing order?')) return;
     setCancellingOrder(true);
@@ -410,7 +444,7 @@ const Dashboard = () => {
                             <span className={`px-1.5 py-0.5 rounded text-[8px] font-black uppercase shrink-0 ${getFileBadge(order.documentId?.originalName)}`}>
                               {order.documentId?.extension?.slice(1) || 'file'}
                             </span>
-                            <span className="truncate text-slate-800 dark:text-dark-200 font-bold">{order.documentId?.originalName || 'Deleted File'}</span>
+                            <span className="truncate text-slate-800 dark:text-white font-bold">{order.documentId?.originalName || 'Deleted File'}</span>
                           </div>
                         </td>
                         <td className="py-4 px-4 text-center font-extrabold text-slate-900 dark:text-white">{order.pages}</td>
@@ -434,9 +468,9 @@ const Dashboard = () => {
                             >
                               <Eye className="h-4 w-4" />
                             </Link>
-                            {order.documentId?.fileUrl && (
+                            {order.documentId && (
                               <div 
-                                onClick={() => window.open(order.documentId.fileUrl, '_blank')}
+                                onClick={() => handleDownloadDocument(order.documentId?._id || order.documentId, order.documentId?.originalName)}
                                 className="p-1.5 hover:bg-[#EFF6FF] dark:hover:bg-blue-950/40 rounded-lg text-slate-500 dark:text-dark-400 hover:text-[#2563EB] dark:hover:text-blue-400 transition-all cursor-pointer"
                                 title="Download file"
                               >
@@ -624,40 +658,40 @@ const Dashboard = () => {
 
             {/* Select B&W or Color */}
             <div className="space-y-2">
-              <label className="block text-xs font-black text-slate-600 dark:text-dark-400 uppercase tracking-wider text-left">Print profile</label>
+              <label className="block text-xs font-black text-slate-700 dark:text-slate-200 uppercase tracking-wider text-left">Print profile</label>
               <div className="grid grid-cols-2 gap-4">
                 <button
                   type="button"
                   onClick={() => setPrintType('bw')}
-                  className={`p-4 rounded-xl border flex flex-col items-center justify-center transition-all ${
+                  className={`p-4 rounded-2xl border flex flex-col items-center justify-center transition-all ${
                     printType === 'bw'
-                      ? 'border-blue-500 bg-blue-50/40 dark:bg-blue-950/20 font-bold'
-                      : 'border-slate-200 dark:border-dark-800 hover:bg-slate-50 dark:hover:bg-dark-900'
+                      ? 'border-blue-500 bg-blue-50/50 dark:bg-blue-900/25 ring-2 ring-blue-500/20 shadow-sm'
+                      : 'border-slate-200 dark:border-dark-800 bg-white dark:bg-dark-900 hover:bg-slate-50 dark:hover:bg-dark-850'
                   }`}
                 >
-                  <span className="text-xl mb-1">⚫</span>
-                  <span className="text-xs font-bold text-slate-800 dark:text-dark-200">Black & White</span>
-                  <span className="text-[10px] text-slate-450 dark:text-dark-400 mt-0.5">{PRICES.bw} BDT / page</span>
+                  <span className="text-2xl mb-1.5">⚫</span>
+                  <span className="text-xs font-extrabold text-slate-900 dark:text-white">Black & White</span>
+                  <span className="text-xs font-semibold text-slate-500 dark:text-slate-300 mt-1">{PRICES.bw} BDT / page</span>
                 </button>
                 <button
                   type="button"
                   onClick={() => setPrintType('color')}
-                  className={`p-4 rounded-xl border flex flex-col items-center justify-center transition-all ${
+                  className={`p-4 rounded-2xl border flex flex-col items-center justify-center transition-all ${
                     printType === 'color'
-                      ? 'border-blue-500 bg-blue-50/40 dark:bg-blue-950/20 font-bold'
-                      : 'border-slate-200 dark:border-dark-800 hover:bg-slate-50 dark:hover:bg-dark-900'
+                      ? 'border-blue-500 bg-blue-50/50 dark:bg-blue-900/25 ring-2 ring-blue-500/20 shadow-sm'
+                      : 'border-slate-200 dark:border-dark-800 bg-white dark:bg-dark-900 hover:bg-slate-50 dark:hover:bg-dark-850'
                   }`}
                 >
-                  <span className="text-xl mb-1">🌈</span>
-                  <span className="text-xs font-bold text-slate-800 dark:text-dark-200">Color Print</span>
-                  <span className="text-[10px] text-slate-450 dark:text-dark-400 mt-0.5">{PRICES.color} BDT / page</span>
+                  <span className="text-2xl mb-1.5">🌈</span>
+                  <span className="text-xs font-extrabold text-slate-900 dark:text-white">Color Print</span>
+                  <span className="text-xs font-semibold text-slate-500 dark:text-slate-300 mt-1">{PRICES.color} BDT / page</span>
                 </button>
               </div>
             </div>
 
             {/* Select copies */}
             <div className="space-y-2 text-left">
-              <label htmlFor="copies" className="block text-xs font-black text-slate-600 dark:text-dark-400 uppercase tracking-wider">Number of Copies</label>
+              <label htmlFor="copies" className="block text-xs font-black text-slate-700 dark:text-slate-200 uppercase tracking-wider">Number of Copies</label>
               <input
                 id="copies"
                 type="number"
@@ -668,19 +702,19 @@ const Dashboard = () => {
               />
             </div>
 
-            <div className="p-4 bg-emerald-50/40 dark:bg-emerald-950/20 border border-emerald-100 dark:border-emerald-900/30 rounded-2xl flex justify-between items-center text-left">
+            <div className="p-4 bg-emerald-50/50 dark:bg-emerald-950/20 border border-emerald-200 dark:border-emerald-900/40 rounded-2xl flex justify-between items-center text-left">
               <div className="leading-none">
-                <span className="text-[10px] font-black text-slate-500 dark:text-dark-400 uppercase tracking-widest block">Total Price Estimation</span>
-                <span className="text-[9px] text-slate-400 dark:text-dark-500 block mt-1 font-semibold">({document.pageCount} pages × {copies} copies)</span>
+                <span className="text-xs font-extrabold text-slate-800 dark:text-slate-100 uppercase tracking-wider block">Total Price Estimation</span>
+                <span className="text-xs text-slate-500 dark:text-slate-400 block mt-1 font-medium">({document.pageCount} pages × {copies} copies)</span>
               </div>
-              <span className="text-xl font-black text-emerald-600 dark:text-emerald-400">{estimatedCost} BDT</span>
+              <span className="text-2xl font-black text-emerald-600 dark:text-emerald-400">{estimatedCost} BDT</span>
             </div>
 
             <div className="flex gap-4 pt-2">
               <button
                 type="button"
                 onClick={() => setWizardStep('upload')}
-                className="flex-1 py-3 text-xs font-bold border border-slate-200 dark:border-dark-800 rounded-xl hover:bg-slate-50 dark:hover:bg-dark-900 text-slate-700 dark:text-dark-300 transition-colors"
+                className="flex-1 py-3 text-xs font-bold border border-slate-200 dark:border-dark-800 rounded-xl bg-white dark:bg-dark-900 hover:bg-slate-50 dark:hover:bg-dark-850 text-slate-800 dark:text-white transition-colors"
               >
                 Back to Upload
               </button>
