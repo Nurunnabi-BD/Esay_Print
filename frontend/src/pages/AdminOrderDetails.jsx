@@ -226,15 +226,15 @@ const AdminOrderDetails = () => {
 
             {/* Print Settings table */}
             <div className="grid grid-cols-3 gap-3 text-center text-xs">
-              <div className="bg-slate-50 dark:bg-dark-900/40 p-3 rounded-xl border border-slate-200 dark:border-dark-800">
+              <div className="bg-slate-50 dark:bg-dark-900 p-3 rounded-xl border border-slate-200 dark:border-dark-800">
                 <span className="text-slate-500 dark:text-dark-400 text-xs font-medium block">Pages</span>
                 <span className="font-extrabold text-slate-900 dark:text-white text-sm">{order.pages}</span>
               </div>
-              <div className="bg-slate-50 dark:bg-dark-900/40 p-3 rounded-xl border border-slate-200 dark:border-dark-800">
+              <div className="bg-slate-50 dark:bg-dark-900 p-3 rounded-xl border border-slate-200 dark:border-dark-800">
                 <span className="text-slate-500 dark:text-dark-400 text-xs font-medium block">Copies</span>
                 <span className="font-extrabold text-slate-900 dark:text-white text-sm">× {order.copies}</span>
               </div>
-              <div className="bg-slate-50 dark:bg-dark-900/40 p-3 rounded-xl border border-slate-200 dark:border-dark-800">
+              <div className="bg-slate-50 dark:bg-dark-900 p-3 rounded-xl border border-slate-200 dark:border-dark-800">
                 <span className="text-slate-500 dark:text-dark-400 text-xs font-medium block">Total cost</span>
                 <span className="font-extrabold text-emerald-600 dark:text-emerald-400 text-sm">{order.totalCost} BDT</span>
               </div>

@@ -179,21 +179,21 @@ const OrderDetails = () => {
 
             {/* Config parameters */}
             <div className="grid grid-cols-2 gap-4 text-xs">
-              <div className="p-3 bg-slate-50 dark:bg-dark-900/40 border border-slate-200 dark:border-dark-800 rounded-xl">
+              <div className="p-3 bg-slate-50 dark:bg-dark-900 border border-slate-200 dark:border-dark-800 rounded-xl">
                 <span className="text-slate-500 dark:text-dark-400 text-xs font-medium block">Print Profile</span>
                 <span className="font-bold text-slate-900 dark:text-white block mt-0.5 capitalize">
                   {order.printType === 'bw' ? 'Black & White' : 'Color Print'}
                 </span>
               </div>
-              <div className="p-3 bg-slate-50 dark:bg-dark-900/40 border border-slate-200 dark:border-dark-800 rounded-xl">
+              <div className="p-3 bg-slate-50 dark:bg-dark-900 border border-slate-200 dark:border-dark-800 rounded-xl">
                 <span className="text-slate-500 dark:text-dark-400 text-xs font-medium block">Copies</span>
                 <span className="font-bold text-slate-900 dark:text-white block mt-0.5">× {order.copies} sets</span>
               </div>
-              <div className="p-3 bg-slate-50 dark:bg-dark-900/40 border border-slate-200 dark:border-dark-800 rounded-xl">
+              <div className="p-3 bg-slate-50 dark:bg-dark-900 border border-slate-200 dark:border-dark-800 rounded-xl">
                 <span className="text-slate-500 dark:text-dark-400 text-xs font-medium block">Lock Price Rate</span>
                 <span className="font-bold text-blue-600 dark:text-blue-400 block mt-0.5">{order.pricePerPage} BDT / page</span>
               </div>
-              <div className="p-3 bg-slate-50 dark:bg-dark-900/40 border border-slate-200 dark:border-dark-800 rounded-xl">
+              <div className="p-3 bg-slate-50 dark:bg-dark-900 border border-slate-200 dark:border-dark-800 rounded-xl">
                 <span className="text-slate-500 dark:text-dark-400 text-xs font-medium block">Total Printed Pages</span>
                 <span className="font-bold text-slate-900 dark:text-white block mt-0.5">{order.totalPages} Pages</span>
               </div>

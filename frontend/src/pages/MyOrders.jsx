@@ -164,15 +164,15 @@ const MyOrders = () => {
                 </div>
 
                 <div className="grid grid-cols-3 gap-2 text-center text-xs">
-                  <div className="bg-slate-50 dark:bg-dark-900/40 p-2 rounded-lg border border-slate-200 dark:border-dark-800">
+                  <div className="bg-slate-50 dark:bg-dark-900 p-2 rounded-lg border border-slate-200 dark:border-dark-800">
                     <span className="text-slate-500 dark:text-dark-400 text-xs font-medium block">Pages</span>
                     <span className="font-bold text-slate-900 dark:text-white">{order.pages}</span>
                   </div>
-                  <div className="bg-slate-50 dark:bg-dark-900/40 p-2 rounded-lg border border-slate-200 dark:border-dark-800">
+                  <div className="bg-slate-50 dark:bg-dark-900 p-2 rounded-lg border border-slate-200 dark:border-dark-800">
                     <span className="text-slate-500 dark:text-dark-400 text-xs font-medium block">Copies</span>
                     <span className="font-bold text-slate-900 dark:text-white">× {order.copies}</span>
                   </div>
-                  <div className="bg-slate-50 dark:bg-dark-900/40 p-2 rounded-lg border border-slate-200 dark:border-dark-800">
+                  <div className="bg-slate-50 dark:bg-dark-900 p-2 rounded-lg border border-slate-200 dark:border-dark-800">
                     <span className="text-slate-500 dark:text-dark-400 text-xs font-medium block">Cost</span>
                     <span className="font-bold text-emerald-600 dark:text-emerald-400">{order.totalCost} BDT</span>
                   </div>

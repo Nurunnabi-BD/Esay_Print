@@ -68,8 +68,8 @@ export default {
           700: 'var(--color-footer-text)',
           800: 'var(--color-border)',
           850: '#1e293b',
-          900: 'var(--color-background)',
-          950: 'var(--color-card)',
+          900: '#0b0f19',
+          950: '#111827',
         }
       },
       fontFamily: {
