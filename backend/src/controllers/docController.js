@@ -198,7 +198,7 @@ const downloadDocument = async (req, res) => {
       : doc.originalName;
     const targetMime = isConverted ? 'application/pdf' : (doc.mimeType || 'application/octet-stream');
 
-    const fileBuffer = await getFileBuffer(targetKey);
+    const fileBuffer = await getFileBuffer(targetKey, doc.fileUrl);
 
     res.setHeader('Content-Type', targetMime);
     res.setHeader('Content-Disposition', `attachment; filename="${encodeURIComponent(targetName)}"`);
@@ -207,9 +207,9 @@ const downloadDocument = async (req, res) => {
     return res.send(fileBuffer);
   } catch (error) {
     console.error('Download document error:', error.message);
-    return res.status(500).json({ 
+    return res.status(404).json({ 
       success: false, 
-      message: 'Server error downloading document' 
+      message: error.message || 'Server error downloading document' 
     });
   }
 };
@@ -236,7 +236,7 @@ const viewDocument = async (req, res) => {
       : doc.originalName;
     const targetMime = isConverted ? 'application/pdf' : (doc.mimeType || 'application/octet-stream');
 
-    const fileBuffer = await getFileBuffer(targetKey);
+    const fileBuffer = await getFileBuffer(targetKey, doc.fileUrl);
 
     res.setHeader('Content-Type', targetMime);
     res.setHeader('Content-Disposition', `inline; filename="${encodeURIComponent(targetName)}"`);
@@ -245,9 +245,9 @@ const viewDocument = async (req, res) => {
     return res.send(fileBuffer);
   } catch (error) {
     console.error('View document error:', error.message);
-    return res.status(500).json({ 
+    return res.status(404).json({ 
       success: false, 
-      message: 'Server error viewing document' 
+      message: error.message || 'Server error viewing document' 
     });
   }
 };

@@ -107,17 +107,44 @@ const getSignedUrl = async (storageKey, expiresIn = 300) => {
 /**
  * Download file content back into a buffer
  * @param {string} storageKey - File storage identifier
+ * @param {string} [fileUrl] - Optional direct URL fallback
  * @returns {Promise<Buffer>}
  */
-const getFileBuffer = async (storageKey) => {
+const getFileBuffer = async (storageKey, fileUrl = null) => {
+  // 1. Try Firebase Cloud Storage if configured
   if (isCloudConfigured && bucket) {
-    const file = bucket.file(storageKey);
-    const [fileContent] = await file.download();
-    return fileContent;
-  } else {
-    const filePath = path.join(__dirname, '../../uploads', storageKey);
+    try {
+      const file = bucket.file(storageKey);
+      const [exists] = await file.exists();
+      if (exists) {
+        const [fileContent] = await file.download();
+        return fileContent;
+      }
+    } catch (cloudErr) {
+      console.warn(`Storage Service: Cloud download failed for ${storageKey}:`, cloudErr.message);
+    }
+  }
+
+  // 2. Try Local uploads folder
+  const filePath = path.join(__dirname, '../../uploads', storageKey);
+  if (fs.existsSync(filePath)) {
     return await fs.promises.readFile(filePath);
   }
+
+  // 3. Fallback: If external URL is reachable via HTTP/HTTPS
+  if (fileUrl && (fileUrl.startsWith('http://') || fileUrl.startsWith('https://')) && !fileUrl.includes('localhost')) {
+    try {
+      const axios = require('axios');
+      const response = await axios.get(fileUrl, { responseType: 'arraybuffer', timeout: 10000 });
+      if (response.status === 200 && response.data) {
+        return Buffer.from(response.data);
+      }
+    } catch (httpErr) {
+      console.warn(`Storage Service: HTTP fetch failed for ${fileUrl}:`, httpErr.message);
+    }
+  }
+
+  throw new Error(`File '${storageKey}' not found on storage server. (If you recently restarted the server, please upload the document again or configure Firebase Cloud Storage for permanent persistence).`);
 };
 
 /**

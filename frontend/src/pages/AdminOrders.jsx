@@ -91,7 +91,17 @@ const AdminOrders = () => {
       window.URL.revokeObjectURL(url);
     } catch (err) {
       console.error('Failed to download document:', err);
-      alert('Failed to download document. Please try again.');
+      let errMsg = 'Failed to download document. Please try again.';
+      if (err.response?.data instanceof Blob) {
+        try {
+          const text = await err.response.data.text();
+          const json = JSON.parse(text);
+          if (json.message) errMsg = json.message;
+        } catch (_) {}
+      } else if (err.response?.data?.message) {
+        errMsg = err.response.data.message;
+      }
+      alert(errMsg);
     }
   };
 
