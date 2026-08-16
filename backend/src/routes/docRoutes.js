@@ -1,6 +1,12 @@
 const express = require('express');
 const router = express.Router();
-const { uploadDocument, getDocument, deleteDocument } = require('../controllers/docController');
+const { 
+  uploadDocument, 
+  getDocument, 
+  deleteDocument,
+  downloadDocument,
+  viewDocument 
+} = require('../controllers/docController');
 const { protect } = require('../middleware/authMiddleware');
 const upload = require('../middleware/uploadMiddleware');
 
@@ -18,6 +24,8 @@ const handleSingleUpload = (req, res, next) => {
 };
 
 router.post('/upload', protect, handleSingleUpload, uploadDocument);
+router.get('/:id/download', protect, downloadDocument);
+router.get('/:id/view', protect, viewDocument);
 router.route('/:id')
   .get(protect, getDocument)
   .delete(protect, deleteDocument);

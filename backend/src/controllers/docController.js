@@ -166,4 +166,96 @@ const deleteDocument = async (req, res) => {
   }
 };
 
-module.exports = { uploadDocument, getDocument, deleteDocument };
+// @desc    Download document (original binary or converted PDF)
+// @route   GET /api/documents/:id/download
+// @access  Private
+const downloadDocument = async (req, res) => {
+  try {
+    const doc = await Document.findById(req.params.id);
+
+    if (!doc) {
+      return res.status(404).json({ 
+        success: false, 
+        message: 'Document not found' 
+      });
+    }
+
+    // Owner authorization check
+    const docUserId = doc.userId?._id ? doc.userId._id.toString() : doc.userId?.toString();
+    const reqUserId = req.user?._id ? req.user._id.toString() : (req.user?.id || '');
+    if (docUserId && docUserId !== reqUserId && req.user?.role !== 'admin') {
+      return res.status(403).json({ 
+        success: false, 
+        message: 'Not authorized to download this document' 
+      });
+    }
+
+    const { getFileBuffer } = require('../services/storageService');
+    const isConverted = req.query.type === 'converted' && doc.convertedStorageKey;
+    const targetKey = isConverted ? doc.convertedStorageKey : doc.storageKey;
+    const targetName = isConverted 
+      ? `${path.basename(doc.originalName, doc.extension)}.pdf`
+      : doc.originalName;
+    const targetMime = isConverted ? 'application/pdf' : (doc.mimeType || 'application/octet-stream');
+
+    const fileBuffer = await getFileBuffer(targetKey);
+
+    res.setHeader('Content-Type', targetMime);
+    res.setHeader('Content-Disposition', `attachment; filename="${encodeURIComponent(targetName)}"`);
+    res.setHeader('Content-Length', fileBuffer.length);
+
+    return res.send(fileBuffer);
+  } catch (error) {
+    console.error('Download document error:', error.message);
+    return res.status(500).json({ 
+      success: false, 
+      message: 'Server error downloading document' 
+    });
+  }
+};
+
+// @desc    Stream/view document inline
+// @route   GET /api/documents/:id/view
+// @access  Private
+const viewDocument = async (req, res) => {
+  try {
+    const doc = await Document.findById(req.params.id);
+
+    if (!doc) {
+      return res.status(404).json({ 
+        success: false, 
+        message: 'Document not found' 
+      });
+    }
+
+    const { getFileBuffer } = require('../services/storageService');
+    const isConverted = req.query.type === 'converted' && doc.convertedStorageKey;
+    const targetKey = isConverted ? doc.convertedStorageKey : doc.storageKey;
+    const targetName = isConverted 
+      ? `${path.basename(doc.originalName, doc.extension)}.pdf`
+      : doc.originalName;
+    const targetMime = isConverted ? 'application/pdf' : (doc.mimeType || 'application/octet-stream');
+
+    const fileBuffer = await getFileBuffer(targetKey);
+
+    res.setHeader('Content-Type', targetMime);
+    res.setHeader('Content-Disposition', `inline; filename="${encodeURIComponent(targetName)}"`);
+    res.setHeader('Content-Length', fileBuffer.length);
+
+    return res.send(fileBuffer);
+  } catch (error) {
+    console.error('View document error:', error.message);
+    return res.status(500).json({ 
+      success: false, 
+      message: 'Server error viewing document' 
+    });
+  }
+};
+
+module.exports = { 
+  uploadDocument, 
+  getDocument, 
+  deleteDocument,
+  downloadDocument,
+  viewDocument
+};

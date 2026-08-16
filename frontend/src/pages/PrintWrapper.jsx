@@ -39,24 +39,25 @@ const PrintWrapper = () => {
       }
 
       // Determine print target URL (use server-generated PDF if available)
-      const fileUrl = orderData.documentId.convertedFileUrl || orderData.documentId.fileUrl;
-      const extension = orderData.documentId.extension.toLowerCase();
+      const docId = orderData.documentId?._id || orderData.documentId;
+      const hasConverted = !!orderData.documentId?.convertedStorageKey;
+      const extension = (orderData.documentId?.extension || '').toLowerCase();
       const imageExtensions = ['.jpg', '.jpeg', '.png', '.gif', '.webp', '.bmp'];
       
       // Check if it's an image or PDF
-      const isImg = imageExtensions.includes(extension) && !orderData.documentId.convertedFileUrl;
+      const isImg = imageExtensions.includes(extension) && !hasConverted;
       setIsImage(isImg);
 
       setStatusMessage('Downloading secure file stream for printing...');
       
-      // Fetch original or converted file as a BLOB
-      // This is crucial to bypass cross-origin browser print security blocks!
-      const fileResponse = await fetch(fileUrl);
-      if (!fileResponse.ok) {
-        throw new Error('Failed to fetch file stream from storage provider.');
-      }
+      // Fetch original or converted file as a BLOB via authenticated API
+      const fileResponse = await axiosClient.get(`/documents/${docId}/download${hasConverted ? '?type=converted' : ''}`, {
+        responseType: 'blob'
+      });
       
-      const fileBlob = await fileResponse.blob();
+      const fileBlob = new Blob([fileResponse.data], { 
+        type: fileResponse.headers['content-type'] || (isImg ? 'image/png' : 'application/pdf') 
+      });
       
       // Create same-origin local Blob Object URL
       const localBlobUrl = URL.createObjectURL(fileBlob);

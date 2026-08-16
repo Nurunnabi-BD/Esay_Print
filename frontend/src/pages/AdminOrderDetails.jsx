@@ -64,10 +64,16 @@ const AdminOrderDetails = () => {
     window.open(`/admin/print/${order._id}`, '_blank');
   };
 
-  const handleDownload = async (fileUrl, originalName) => {
+  const handleDownload = async (docId, originalName) => {
     try {
-      const response = await fetch(fileUrl);
-      const blob = await response.blob();
+      if (!docId) {
+        alert('Document is not available for download.');
+        return;
+      }
+      const res = await axiosClient.get(`/documents/${docId}/download`, {
+        responseType: 'blob'
+      });
+      const blob = new Blob([res.data], { type: res.headers['content-type'] || 'application/octet-stream' });
       const url = window.URL.createObjectURL(blob);
       const a = document.createElement('a');
       a.href = url;
@@ -77,7 +83,8 @@ const AdminOrderDetails = () => {
       document.body.removeChild(a);
       window.URL.revokeObjectURL(url);
     } catch (err) {
-      window.open(fileUrl, '_blank');
+      console.error('Failed to download document:', err);
+      alert('Failed to download document. Please try again.');
     }
   };
 
@@ -216,7 +223,7 @@ const AdminOrderDetails = () => {
                 </div>
               </div>
               <button
-                onClick={() => handleDownload(order.documentId?.fileUrl, order.documentId?.originalName)}
+                onClick={() => handleDownload(order.documentId?._id || order.documentId, order.documentId?.originalName)}
                 className="flex items-center gap-2 rounded-xl bg-white dark:bg-dark-950 hover:bg-slate-100 dark:hover:bg-dark-800 border border-slate-200 dark:border-dark-800 px-4 py-2.5 text-xs font-bold text-slate-700 dark:text-dark-300 hover:text-slate-900 dark:hover:text-white transition-colors shrink-0"
               >
                 <Download className="h-4 w-4" />

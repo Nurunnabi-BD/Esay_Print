@@ -71,10 +71,16 @@ const AdminOrders = () => {
     return () => clearTimeout(delayDebounce);
   }, [searchQuery]);
 
-  const handleDownload = async (fileUrl, originalName) => {
+  const handleDownload = async (docId, originalName) => {
     try {
-      const response = await fetch(fileUrl);
-      const blob = await response.blob();
+      if (!docId) {
+        alert('Document is not available for download.');
+        return;
+      }
+      const res = await axiosClient.get(`/documents/${docId}/download`, {
+        responseType: 'blob'
+      });
+      const blob = new Blob([res.data], { type: res.headers['content-type'] || 'application/octet-stream' });
       const url = window.URL.createObjectURL(blob);
       const a = document.createElement('a');
       a.href = url;
@@ -84,8 +90,8 @@ const AdminOrders = () => {
       document.body.removeChild(a);
       window.URL.revokeObjectURL(url);
     } catch (err) {
-      // Fallback: open in new tab if CORS or other issues block blob download
-      window.open(fileUrl, '_blank');
+      console.error('Failed to download document:', err);
+      alert('Failed to download document. Please try again.');
     }
   };
 
@@ -271,7 +277,7 @@ const AdminOrders = () => {
                         </Link>
 
                         <div
-                          onClick={() => handleDownload(order.documentId?.fileUrl, order.documentId?.originalName)}
+                          onClick={() => handleDownload(order.documentId?._id || order.documentId, order.documentId?.originalName)}
                           className="p-1.5 hover:bg-[#EFF6FF] rounded-lg text-slate-500 hover:text-[#2563EB] transition-colors cursor-pointer"
                           title="Download Original"
                         >

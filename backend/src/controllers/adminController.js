@@ -39,7 +39,7 @@ const getOrders = async (req, res) => {
     const totalOrders = await Order.countDocuments(query);
     const orders = await Order.find(query)
       .populate('userId', 'name studentId department semester email')
-      .populate('documentId', 'originalName extension fileSize processingStatus')
+      .populate('documentId', 'originalName extension fileSize processingStatus fileUrl storageKey convertedStorageKey')
       .sort({ createdAt: -1 })
       .skip(skipIndex)
       .limit(parseInt(limit, 10));
