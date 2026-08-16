@@ -20,7 +20,8 @@ const AdminLogin = () => {
     setSubmitting(true);
 
     try {
-      const result = await login(email, password);
+      const cleanEmail = email.trim().toLowerCase();
+      const result = await login(cleanEmail, password);
       if (result.success) {
         const savedUser = JSON.parse(localStorage.getItem('user'));
         if (savedUser && savedUser.role === 'admin') {

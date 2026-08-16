@@ -90,8 +90,10 @@ const loginUser = async (req, res) => {
       });
     }
 
+    const cleanEmail = String(email).trim().toLowerCase();
+
     // Find user and explicitly select password
-    const user = await User.findOne({ email }).select('+password');
+    const user = await User.findOne({ email: cleanEmail }).select('+password');
     
     console.log('DEBUG LOGIN:', {
       email,
