@@ -85,6 +85,7 @@ const createOrder = async (req, res) => {
     // Create Order
     const order = await Order.create({
       orderId,
+      orderNumber: orderId,
       userId: req.user._id || req.user.id,
       documentId: doc._id,
       printType,

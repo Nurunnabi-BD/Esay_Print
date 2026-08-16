@@ -53,7 +53,17 @@ const OrderSchema = new mongoose.Schema({
   adminNote: { 
     type: String, 
     default: '' 
+  },
+  orderNumber: {
+    type: String
   }
 }, { timestamps: true });
+
+OrderSchema.pre('validate', function(next) {
+  if (this.orderId && !this.orderNumber) {
+    this.orderNumber = this.orderId;
+  }
+  next();
+});
 
 module.exports = mongoose.model('Order', OrderSchema);
